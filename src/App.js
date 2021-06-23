@@ -1,11 +1,13 @@
 import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-function App() {
+import Routes from './components/Routes'
+
+export default function App() {
   return (
-    <React.Fragment>
-      <h1>Teste</h1>
-    </React.Fragment>
+    <>
+      <CssBaseline />
+      <Routes />
+    </>
   );
 }
-
-export default App;
