@@ -1,7 +1,9 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
+
+import { fetchToken } from '../../services/authentication';
 
 const useStyles = makeStyles({
   root: {
@@ -20,17 +22,32 @@ const useStyles = makeStyles({
     width: '100%',
     marginTop: 20,
   },
+  buttonProgress: {
+  },
 })
 
 const Login = () => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [loading, setLoading] = React.useState(false)
 
   const classes = useStyles()
   const login = (event) => {
     event.preventDefault()
 
-    console.log(email, password)
+    setLoading(true)
+    fetchToken({ email, password })
+      .then(response => {
+        alert('Success!')
+        console.log(response)
+      })
+      .catch(error => {
+        alert('Error')
+        console.log(error)
+      })
+      .finally((() => {
+        setLoading(false)
+      }))
   }
 
   return (
@@ -57,7 +74,6 @@ const Login = () => {
           autoFocus={ true }
           type="email"
           label="Email"
-          value={ email }
           onChange={ event => setEmail(event.target.value) }
         />
 
@@ -65,18 +81,19 @@ const Login = () => {
           className={ classes.input }
           type="password"
           label="Password"
-          value={ password }
           onChange={ event => setPassword(event.target.value) }
         />
 
         <Button
           className={ classes.button }
+          disabled={ loading }
           variant="contained"
           color="primary"
           size="large"
           type="submit"
         >
-          Enter
+          { !loading && "Enter" }
+          { loading && <CircularProgress size={ 25 } /> }
         </Button>
       </form>
     </Box>
