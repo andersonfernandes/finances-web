@@ -1,11 +1,11 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField';
-import { Box, Button, CircularProgress, Snackbar, Typography } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
+import TextField from '@material-ui/core/TextField'
+import { Box, Button, CircularProgress, Snackbar, Typography } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
+import { makeStyles } from '@material-ui/core/styles'
+import { useHistory } from "react-router-dom"
 
-import getTokens from '../../services/authentication/get_tokens';
+import { fetchTokens } from '../../services/authentication'
 
 const useStyles = makeStyles({
   root: {
@@ -55,7 +55,7 @@ const Login = () => {
     event.preventDefault()
 
     setLoading(true)
-    getTokens({ email, password })
+    fetchTokens({ email, password })
       .then(() => history.push('/'))
       .catch(() => setShowErrors(true))
       .finally((() => setLoading(false)))

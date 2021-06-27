@@ -7,19 +7,19 @@ import {
 
 import Login from '../Login'
 
-export default function Routes({ tokens, setTokens }) {
+export default function Routes() {
   return (
     <Router>
       <Switch>
         <Route path="/login">
-          <Login setTokens={ setTokens } />
+          <Login />
         </Route>
         <Route path="/">
           <Home />
         </Route>
       </Switch>
     </Router>
-  );
+  )
 }
 
 const Home = () => {
