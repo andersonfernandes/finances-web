@@ -1,9 +1,11 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
+import { Box, Button, CircularProgress, Snackbar, Typography } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
 
-import { fetchToken } from '../../services/authentication';
+import getTokens from '../../services/authentication/get_tokens';
 
 const useStyles = makeStyles({
   root: {
@@ -22,32 +24,41 @@ const useStyles = makeStyles({
     width: '100%',
     marginTop: 20,
   },
-  buttonProgress: {
-  },
 })
 
+const LoginError = ({ setOpen }) => {
+  const handleClose = (_, reason) => {
+    if (reason === 'clickaway') return
+
+    setOpen(false)
+  }
+
+  return (
+    <Snackbar open autoHideDuration={ 6000 } onClose={ handleClose }>
+      <MuiAlert onClose={ handleClose } severity="error">
+        Email ou senha inválido!
+      </MuiAlert>
+    </Snackbar>
+  )
+}
+
 const Login = () => {
+  const history = useHistory()
+
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [loading, setLoading] = React.useState(false)
+  const [showErrors, setShowErrors] = React.useState(false)
 
   const classes = useStyles()
   const login = (event) => {
     event.preventDefault()
 
     setLoading(true)
-    fetchToken({ email, password })
-      .then(response => {
-        alert('Success!')
-        console.log(response)
-      })
-      .catch(error => {
-        alert('Error')
-        console.log(error)
-      })
-      .finally((() => {
-        setLoading(false)
-      }))
+    getTokens({ email, password })
+      .then(() => history.push('/'))
+      .catch(() => setShowErrors(true))
+      .finally((() => setLoading(false)))
   }
 
   return (
@@ -96,6 +107,8 @@ const Login = () => {
           { loading && <CircularProgress size={ 25 } /> }
         </Button>
       </form>
+
+      { showErrors && <LoginError setOpen={ setShowErrors } /> }
     </Box>
   )
 }

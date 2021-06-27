@@ -7,19 +7,23 @@ import {
 
 import Login from '../Login'
 
-export default function Routes() {
+export default function Routes({ tokens, setTokens }) {
   return (
     <Router>
-      <div>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/login">
+          <Login setTokens={ setTokens } />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </Router>
   );
+}
+
+const Home = () => {
+  return (
+    <h1>Home Page</h1>
+  )
 }
