@@ -1,11 +1,12 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
-import { Box, Button, CircularProgress, Snackbar, Typography } from '@material-ui/core'
-import MuiAlert from '@material-ui/lab/Alert'
+import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from "react-router-dom"
 
 import { fetchTokens } from '../../services/authentication'
+import LoadingBackdrop from '../LoadingBackdrop'
+import LoginError from './LoginError'
 
 const useStyles = makeStyles({
   root: {
@@ -26,22 +27,6 @@ const useStyles = makeStyles({
   },
 })
 
-const LoginError = ({ setOpen }) => {
-  const handleClose = (_, reason) => {
-    if (reason === 'clickaway') return
-
-    setOpen(false)
-  }
-
-  return (
-    <Snackbar open autoHideDuration={ 6000 } onClose={ handleClose }>
-      <MuiAlert onClose={ handleClose } severity="error">
-        Email ou senha inválido!
-      </MuiAlert>
-    </Snackbar>
-  )
-}
-
 const Login = () => {
   const history = useHistory()
 
@@ -54,6 +39,7 @@ const Login = () => {
   const login = (event) => {
     event.preventDefault()
 
+    setShowErrors(false)
     setLoading(true)
     fetchTokens({ email, password })
       .then(() => history.push('/'))
@@ -62,8 +48,8 @@ const Login = () => {
   }
 
   return (
-    <Box className={ classes.root }>
-      <Box className={ classes.heading }>
+    <Box className={classes.root}>
+      <Box className={classes.heading}>
         <Typography
           variant="h3"
           align="center"
@@ -71,7 +57,7 @@ const Login = () => {
           Finances Web
         </Typography>
         <Typography
-          variant={ 'h4' }
+          variant="h4"
           align="center"
           gutterBottom
         >
@@ -81,34 +67,38 @@ const Login = () => {
 
       <form onSubmit={ event => login(event) }>
         <TextField
-          className={ classes.input }
-          autoFocus={ true }
+          className={classes.input}
+          autoFocus={true}
           type="email"
           label="Email"
           onChange={ event => setEmail(event.target.value) }
         />
 
         <TextField
-          className={ classes.input }
+          className={classes.input}
           type="password"
           label="Password"
           onChange={ event => setPassword(event.target.value) }
         />
 
         <Button
-          className={ classes.button }
-          disabled={ loading }
+          className={classes.button}
+          disabled={loading }
           variant="contained"
           color="primary"
           size="large"
           type="submit"
         >
-          { !loading && "Enter" }
-          { loading && <CircularProgress size={ 25 } /> }
+          Enter
         </Button>
+
+        <LoadingBackdrop open={loading} />
       </form>
 
-      { showErrors && <LoginError setOpen={ setShowErrors } /> }
+      <LoginError
+        open={showErrors}
+        setOpen={setShowErrors}
+      />
     </Box>
   )
 }
