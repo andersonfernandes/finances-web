@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from "react-router-dom"
 
 import { fetchTokens } from '../../services/authentication'
-import LoadingBackdrop from '../LoadingBackdrop'
-import LoginError from './LoginError'
+import LoadingBackdrop from '../../components/LoadingBackdrop'
+import LoginError from './components/LoginError'
 
 const useStyles = makeStyles({
   root: {

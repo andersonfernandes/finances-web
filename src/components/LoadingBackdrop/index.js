@@ -1,3 +1,1 @@
-import LoadingBackdrop from "./LoadingBackdrop"
-
-export default LoadingBackdrop
+export { default }  from './LoadingBackdrop'
