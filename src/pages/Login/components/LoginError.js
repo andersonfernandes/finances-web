@@ -1,23 +1,10 @@
 import { Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 
-const LoginError = ({ open, setOpen }) => {
-  const handleClose = (_, reason) => {
-    if (reason === 'clickaway') return
-
-    setOpen(false)
-  }
-
+const LoginError = ({ open }) => {
   return (
-    <Snackbar
-      open={open}
-      autoHideDuration={6000}
-      onClose={handleClose}
-    >
-      <MuiAlert
-        onClose={handleClose}
-        severity="error"
-      >
+    <Snackbar open={open} autoHideDuration={6000}>
+      <MuiAlert severity="error">
         Email ou senha inválido!
       </MuiAlert>
     </Snackbar>

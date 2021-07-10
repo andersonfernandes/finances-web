@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useHistory } from "react-router-dom"
 
-import { fetchTokens } from '../../services/authentication'
 import LoadingBackdrop from '../../components/LoadingBackdrop'
 import LoginError from './components/LoginError'
+import { AuthContext } from '../../context/AuthContext'
 
 const useStyles = makeStyles({
   root: {
@@ -28,23 +27,19 @@ const useStyles = makeStyles({
 })
 
 const Login = () => {
-  const history = useHistory()
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
 
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
-  const [loading, setLoading] = React.useState(false)
-  const [showErrors, setShowErrors] = React.useState(false)
+  const {
+    showErrors,
+    handleLogin,
+    loading,
+  } = useContext(AuthContext)
 
   const classes = useStyles()
   const login = (event) => {
     event.preventDefault()
-
-    setShowErrors(false)
-    setLoading(true)
-    fetchTokens({ email, password })
-      .then(() => history.push('/'))
-      .catch(() => setShowErrors(true))
-      .finally((() => setLoading(false)))
+    handleLogin({ email, password })
   }
 
   return (
@@ -95,10 +90,7 @@ const Login = () => {
         <LoadingBackdrop open={loading} />
       </form>
 
-      <LoginError
-        open={showErrors}
-        setOpen={setShowErrors}
-      />
+      <LoginError open={showErrors} />
     </Box>
   )
 }

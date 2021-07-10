@@ -1,23 +1,37 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 
 import Login from './pages/Login'
+import { AuthContext, AuthProvider } from './context/AuthContext'
+
+const PrivateRoute = ({ component: Component, ...args}) => {
+  const { authenticated } = useContext(AuthContext)
+
+  return (
+    <Route
+      {...args}
+      render={() => authenticated
+        ? <Component />
+        : <Redirect to="/login" />
+      }
+    />
+  )
+}
 
 export default function Routes() {
   return (
     <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <AuthProvider>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/" component={Home} />
+        </Switch>
+      </AuthProvider>
     </Router>
   )
 }
