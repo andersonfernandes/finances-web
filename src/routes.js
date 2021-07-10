@@ -3,24 +3,22 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  Link
 } from 'react-router-dom'
 
 import Login from './pages/Login'
 import { AuthContext, AuthProvider } from './context/AuthContext'
+import LoadingBackdrop from './components/LoadingBackdrop'
 
-const PrivateRoute = ({ component: Component, ...args}) => {
-  const { authenticated } = useContext(AuthContext)
+const CustomRoute = ({ isPrivate, ...rest}) => {
+  const { loading, authenticated } = useContext(AuthContext)
 
-  return (
-    <Route
-      {...args}
-      render={() => authenticated
-        ? <Component />
-        : <Redirect to="/login" />
-      }
-    />
-  )
+  if (loading) return <LoadingBackdrop open={loading} />
+
+  if (isPrivate && !authenticated) return <Redirect to="/login" />
+
+  return <Route exact {...rest} />
 }
 
 export default function Routes() {
@@ -28,8 +26,9 @@ export default function Routes() {
     <Router>
       <AuthProvider>
         <Switch>
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/" component={Home} />
+          <CustomRoute path="/login" component={Login} />
+          <CustomRoute isPrivate path="/about" component={About} />
+          <CustomRoute isPrivate path="/" component={Home} />
         </Switch>
       </AuthProvider>
     </Router>
@@ -38,6 +37,19 @@ export default function Routes() {
 
 const Home = () => {
   return (
-    <h1>Home Page</h1>
+    <>
+      <h1>Home Page</h1>
+      <Link to="/about">About</Link>
+    </>
+  )
+}
+
+
+const About = () => {
+  return (
+    <>
+      <h1>About Page</h1>
+      <Link to="/">Home</Link>
+    </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
 import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import LoadingBackdrop from '../../components/LoadingBackdrop'
 import LoginError from './components/LoginError'
 import { AuthContext } from '../../context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,8 @@ const useStyles = makeStyles({
 })
 
 const Login = () => {
+  const history = useHistory()
+
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -34,6 +37,7 @@ const Login = () => {
     showErrors,
     handleLogin,
     loading,
+    authenticated,
   } = useContext(AuthContext)
 
   const classes = useStyles()
@@ -41,6 +45,10 @@ const Login = () => {
     event.preventDefault()
     handleLogin({ email, password })
   }
+
+  useEffect(() => {
+    if (authenticated) history.push('/')
+  }, [authenticated, history])
 
   return (
     <Box className={classes.root}>
@@ -78,7 +86,7 @@ const Login = () => {
 
         <Button
           className={classes.button}
-          disabled={loading }
+          disabled={loading}
           variant="contained"
           color="primary"
           size="large"

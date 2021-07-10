@@ -23,6 +23,14 @@ export default function useAuth() {
     setLoading(false)
   }, [])
 
+  const handleLoginErrors = () => {
+    Storage.remove(ACCESS_TOKEN)
+    Storage.remove(REFRESH_TOKEN)
+
+    setAuthenticated(false)
+    setShowErrors(true)
+  }
+
   const handleLogin =  async ({ email, password }) => {
     setShowErrors(false)
     setLoading(true)
@@ -37,11 +45,11 @@ export default function useAuth() {
           setAuthenticated(true)
           history.push('/')
         } else {
-          setShowErrors(true)
+          handleLoginErrors()
         }
       })
       .catch(() => {
-        setShowErrors(true)
+        handleLoginErrors()
       })
       .finally(() => {
         setLoading(false)
@@ -59,8 +67,8 @@ export default function useAuth() {
   }
 
   const handleTokenRefresh = async () => {
-    const accessToken = Storage.get(ACCESS_TOKEN)
-    const refreshToken = Storage.get(REFRESH_TOKEN)
+    // const accessToken = Storage.get(ACCESS_TOKEN)
+    // const refreshToken = Storage.get(REFRESH_TOKEN)
 
     // TODO: Call API
     // TODO: Update cookies
