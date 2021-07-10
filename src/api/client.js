@@ -2,22 +2,24 @@ import axios from 'axios'
 
 import Storage from '../services/cookieStorage'
 
-const buildHeaders = () => {
-  let headers = {
-    'Content-Type': 'application/json'
-  }
-
+const authorizationHeader = () => {
   const accessToken = Storage.get(Storage.Keys.ACCESS_TOKEN)
+
   if (accessToken) {
-    Object.assign(headers, { 'Authentication': `Bearer ${accessToken}` })
+    return `Bearer ${accessToken.trim()}`
   }
 
-  return headers
+  return undefined
 }
 
-const Client = axios.create({
-  baseURL: 'https://financesapi.herokuapp.com/v1',
-  headers: buildHeaders(),
-})
+const Client = () => {
+  return axios.create({
+    baseURL: 'https://financesapi.herokuapp.com/v1',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': authorizationHeader(),
+    },
+  })
+}
 
 export default Client

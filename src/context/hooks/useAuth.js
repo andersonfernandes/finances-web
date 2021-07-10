@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { authenticate } from '../../api/authentication'
+import { authenticate, revoke } from '../../api/authentication'
 import Storage from '../../services/cookieStorage'
 
 const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys
@@ -57,13 +57,17 @@ export default function useAuth() {
   }
 
   const handleLogout = async () => {
+    setLoading(true)
     setAuthenticated(false)
 
-    Storage.remove(ACCESS_TOKEN)
-    Storage.remove(REFRESH_TOKEN)
+    revoke()
+      .then(() => {
+        Storage.remove(ACCESS_TOKEN)
+        Storage.remove(REFRESH_TOKEN)
 
-    // TODO: Call API
-    // TODO: Handle history
+        setLoading(false)
+        history.push('/login')
+      })
   }
 
   const handleTokenRefresh = async () => {

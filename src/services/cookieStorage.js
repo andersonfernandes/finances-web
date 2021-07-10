@@ -12,8 +12,8 @@ const Storage = {
 }
 
 Storage.Keys = {
-  ACCESS_TOKEN: 'fin_access_token',
-  REFRESH_TOKEN: 'fin_refresh_token',
+  ACCESS_TOKEN: '__fin_access_token',
+  REFRESH_TOKEN: '__fin_refresh_token',
 }
 
 export default Storage
