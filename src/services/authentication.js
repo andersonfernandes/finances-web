@@ -1,5 +1,7 @@
 import { authenticate } from "../api/authentication"
-import { setTokensCookie } from "./tokens_storage"
+import Storage from './cookieStorage'
+
+const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys
 
 const fetchTokens = ({ email, password }) => {
   return new Promise((resolve, reject) => {
@@ -7,10 +9,8 @@ const fetchTokens = ({ email, password }) => {
       .then(response => {
         if (response.status === 200) {
           const { access_token, refresh_token } = response.data
-          setTokensCookie({
-            accessToken: access_token,
-            refreshToken: refresh_token,
-          })
+          Storage.set(ACCESS_TOKEN, access_token)
+          Storage.set(REFRESH_TOKEN, refresh_token)
 
           resolve()
         } else {

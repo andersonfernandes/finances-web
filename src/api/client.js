@@ -1,12 +1,13 @@
 import axios from 'axios'
-import { getAccessTokenFromCookie } from '../services/tokens_storage'
+
+import Storage from '../services/cookieStorage'
 
 const buildHeaders = () => {
   let headers = {
     'Content-Type': 'application/json'
   }
 
-  const accessToken = getAccessTokenFromCookie()
+  const accessToken = Storage.get(Storage.Keys.ACCESS_TOKEN)
   if (accessToken) {
     Object.assign(headers, { 'Authentication': `Bearer ${accessToken}` })
   }
