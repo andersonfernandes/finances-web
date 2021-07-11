@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { default as ApiClient } from '../../api/client'
 import { authenticate, revoke } from '../../api/authentication'
 import Storage from '../../services/cookieStorage'
 
@@ -42,6 +43,8 @@ export default function useAuth() {
           Storage.set(ACCESS_TOKEN, access_token)
           Storage.set(REFRESH_TOKEN, refresh_token)
 
+          ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
+
           setAuthenticated(true)
           history.push('/')
         } else {
@@ -70,21 +73,11 @@ export default function useAuth() {
       })
   }
 
-  const handleTokenRefresh = async () => {
-    // const accessToken = Storage.get(ACCESS_TOKEN)
-    // const refreshToken = Storage.get(REFRESH_TOKEN)
-
-    // TODO: Call API
-    // TODO: Update cookies
-    // TODO: History?
-  }
-
   return {
     authenticated,
     loading,
     showErrors,
     handleLogin,
     handleLogout,
-    handleTokenRefresh,
   }
 }

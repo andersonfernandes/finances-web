@@ -10,7 +10,6 @@ const AuthProvider = ({ children }) => {
     showErrors,
     handleLogin,
     handleLogout,
-    handleTokenRefresh,
   } = useAuth()
 
   return (
@@ -21,7 +20,6 @@ const AuthProvider = ({ children }) => {
         showErrors,
         handleLogin,
         handleLogout,
-        handleTokenRefresh,
       }}
     >
       {children}
