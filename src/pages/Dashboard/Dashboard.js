@@ -1,15 +1,11 @@
-import React, { useContext } from 'react'
-import { Button } from '@material-ui/core'
+import React from 'react'
 
-import { AuthContext } from '../../context/AuthContext'
+import Navbar from '../../components/Navbar'
 
 const Dashboard = () => {
-  const { handleLogout } = useContext(AuthContext)
-
   return (
     <>
-      <h1>Dashboard</h1>
-      <Button variant="contained" onClick={() => handleLogout()}>Sair</Button>
+      <Navbar title="Dashboard" />
     </>
   )
 }
