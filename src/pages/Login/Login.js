@@ -1,31 +1,37 @@
 import React, { useContext, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
-import { Box, Button, Typography } from '@material-ui/core'
+import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import LoadingBackdrop from '../../components/LoadingBackdrop'
 import LoginError from './components/LoginError'
 import { AuthContext } from '../../context/AuthContext'
-import { useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    width: 500,
+    width: '30%',
     padding: 50,
     margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.only('md')]: {
+      width: '50%',
+    },
   },
   heading : {
-    marginBottom: 50,
+    marginBottom: '25%',
   },
   input: {
     width: '100%',
     margin: '20px 0',
   },
-  button: {
-    width: '100%',
-    marginTop: 20,
+  buttonGroup: {
+    marginTop: 40,
+    textAlign: 'center',
   },
-})
+}))
 
 const Login = () => {
   const history = useHistory()
@@ -47,7 +53,7 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if (authenticated) history.push('/')
+    if (authenticated) history.push('/dashboard')
   }, [authenticated, history])
 
   return (
@@ -57,19 +63,21 @@ const Login = () => {
           variant="h3"
           align="center"
         >
-          Finances Web
+          Finances
         </Typography>
+
         <Typography
           variant="h4"
           align="center"
           gutterBottom
         >
-          Login
+          Sign In
         </Typography>
       </Box>
 
       <form onSubmit={ event => login(event) }>
         <TextField
+          variant="outlined"
           className={classes.input}
           autoFocus={true}
           type="email"
@@ -78,22 +86,39 @@ const Login = () => {
         />
 
         <TextField
+          variant="outlined"
           className={classes.input}
           type="password"
           label="Password"
           onChange={ event => setPassword(event.target.value) }
         />
 
-        <Button
-          className={classes.button}
-          disabled={loading}
-          variant="contained"
-          color="primary"
-          size="large"
-          type="submit"
-        >
-          Enter
-        </Button>
+        <Grid container className={classes.buttonGroup}>
+          <Grid item xs={6}>
+            <Button
+              disabled={loading}
+              variant="contained"
+              color="primary"
+              size="large"
+              type="submit"
+            >
+              Enter
+            </Button>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              component={RouterLink}
+              to="/"
+            >
+              Back
+            </Button>
+          </Grid>
+
+        </Grid>
 
         <LoadingBackdrop open={loading} />
       </form>

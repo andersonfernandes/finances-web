@@ -8,6 +8,8 @@ import {
 
 import { AuthContext, AuthProvider } from './context/AuthContext'
 import LoadingBackdrop from './components/LoadingBackdrop'
+
+import Home from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 
@@ -30,12 +32,9 @@ export default function Routes() {
     <Router>
       <AuthProvider>
         <Switch>
+          <CustomRoute isPrivate path="/dashboard" component={Dashboard} />
           <CustomRoute path="/login" component={Login} />
-          <CustomRoute
-            isPrivate
-            path={['/', '/dashboard']}
-            component={Dashboard}
-          />
+          <CustomRoute path="/" component={Home} />
         </Switch>
       </AuthProvider>
     </Router>

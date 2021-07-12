@@ -46,7 +46,7 @@ export default function useAuth() {
           ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
 
           setAuthenticated(true)
-          history.push('/')
+          history.push('/dashboard')
         } else {
           handleLoginErrors()
         }
@@ -69,7 +69,7 @@ export default function useAuth() {
         Storage.remove(REFRESH_TOKEN)
 
         setLoading(false)
-        history.push('/login')
+        history.push('/')
       })
   }
 
