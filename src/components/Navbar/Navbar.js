@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useState } from 'react'
 import {
   AppBar,
-  Button,
+  IconButton,
   makeStyles,
   Toolbar,
   Typography,
 } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 
-import {AuthContext} from '../../context/AuthContext'
+import MenuDrawer from '../MenuDrawer'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,22 +24,30 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Navbar = ({ title }) => {
+  const [openMenu, setOpenMenu] = useState(false)
   const classes = useStyles()
-  const { handleLogout } = useContext(AuthContext)
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={() => setOpenMenu(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-
-          <Button color="inherit" onClick={() => handleLogout()}>
-            Logout
-          </Button>
         </Toolbar>
       </AppBar>
+
+      <MenuDrawer open={openMenu} setOpen={setOpenMenu} />
     </div>
   )
 }
