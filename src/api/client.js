@@ -16,7 +16,7 @@ const buildAuthorizationHeader = () => {
 }
 
 const Client = axios.create({
-  baseURL: 'http://localhost:5000/v1',
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'Content-Type': 'application/json',
     'Authorization': buildAuthorizationHeader(),
