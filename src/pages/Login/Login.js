@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 const Login = () => {
   const history = useHistory()
+  const classes = useStyles()
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -46,7 +47,6 @@ const Login = () => {
     authenticated,
   } = useContext(AuthContext)
 
-  const classes = useStyles()
   const login = (event) => {
     event.preventDefault()
     handleLogin({ email, password })
@@ -77,6 +77,7 @@ const Login = () => {
 
       <form onSubmit={ event => login(event) }>
         <TextField
+          id="email"
           variant="outlined"
           className={classes.input}
           autoFocus={true}
@@ -86,6 +87,7 @@ const Login = () => {
         />
 
         <TextField
+          id="password"
           variant="outlined"
           className={classes.input}
           type="password"

@@ -5,7 +5,7 @@ const LoginError = ({ open }) => {
   return (
     <Snackbar open={open} autoHideDuration={6000}>
       <MuiAlert severity="error">
-        Email ou senha inválido!
+        Invalid Email or Password!
       </MuiAlert>
     </Snackbar>
   )
