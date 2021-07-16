@@ -12,6 +12,7 @@ import LoadingBackdrop from './components/LoadingBackdrop'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import CreditCards from './pages/CreditCards'
 
 const CustomRoute = ({ isPrivate, ...rest}) => {
   const { loading, authenticated } = useContext(AuthContext)
@@ -33,6 +34,7 @@ export default function Routes() {
       <AuthProvider>
         <Switch>
           <CustomRoute isPrivate path="/dashboard" component={Dashboard} />
+          <CustomRoute isPrivate path="/credit_cards" component={CreditCards} />
           <CustomRoute path="/login" component={Login} />
           <CustomRoute path="/" component={Home} />
         </Switch>
