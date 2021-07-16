@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 
-import { AuthContext } from '../../context/AuthContext'
+import AuthContext from '../../context/AuthContext'
 
 const useStyles = makeStyles({
   root: {

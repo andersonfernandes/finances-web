@@ -1,12 +1,13 @@
 import React from 'react'
 
-import Navbar from '../../components/Navbar'
+import BaseLayout from '../../components/BaseLayout'
+
 
 const Dashboard = () => {
   return (
-    <>
-      <Navbar title="Dashboard" />
-    </>
+    <BaseLayout>
+
+    </BaseLayout>
   )
 }
 

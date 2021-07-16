@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import {
   AppBar,
   IconButton,
@@ -23,9 +25,21 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Navbar = ({ title }) => {
+const Navbar = ({ menuItems }) => {
+  const location = useLocation()
+
   const [openMenu, setOpenMenu] = useState(false)
+  const [title, setTitle] = useState('')
+
   const classes = useStyles()
+
+  useEffect(() => {
+    const currentMenuItem = menuItems.find(item => {
+      return item.path === location.pathname
+    })
+
+    setTitle(currentMenuItem.title)
+  }, [location, menuItems])
 
   return (
     <div className={classes.root}>
@@ -47,7 +61,7 @@ const Navbar = ({ title }) => {
         </Toolbar>
       </AppBar>
 
-      <MenuDrawer open={openMenu} setOpen={setOpenMenu} />
+      <MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
     </div>
   )
 }

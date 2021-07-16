@@ -3,7 +3,7 @@ import useAuth from './hooks/useAuth'
 
 const AuthContext = createContext()
 
-const AuthProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   const {
     authenticated,
     loading,
@@ -27,4 +27,6 @@ const AuthProvider = ({ children }) => {
   )
 }
 
-export { AuthContext, AuthProvider }
+export default AuthContext
+
+export { AuthContextProvider }

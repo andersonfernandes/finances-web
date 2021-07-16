@@ -2,6 +2,7 @@ import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
+import { AppContextProvider } from './context/AppContext'
 import Routes from './routes'
 
 export default function App() {
@@ -17,7 +18,10 @@ export default function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Routes />
+
+      <AppContextProvider>
+        <Routes />
+      </AppContextProvider>
     </ThemeProvider>
   )
 }

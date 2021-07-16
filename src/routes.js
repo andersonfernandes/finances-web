@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-import { AuthContext, AuthProvider } from './context/AuthContext'
+import AuthContext, { AuthContextProvider } from './context/AuthContext'
 import LoadingBackdrop from './components/LoadingBackdrop'
 
 import Home from './pages/Home'
@@ -31,14 +31,14 @@ const CustomRoute = ({ isPrivate, ...rest}) => {
 export default function Routes() {
   return (
     <Router>
-      <AuthProvider>
+      <AuthContextProvider >
         <Switch>
           <CustomRoute isPrivate path="/dashboard" component={Dashboard} />
           <CustomRoute isPrivate path="/credit_cards" component={CreditCards} />
           <CustomRoute path="/login" component={Login} />
           <CustomRoute path="/" component={Home} />
         </Switch>
-      </AuthProvider>
+      </AuthContextProvider>
     </Router>
   )
 }
