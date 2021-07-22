@@ -1,7 +1,8 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
+import { Container } from '@material-ui/core'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import CreditCardIcon from '@material-ui/icons/CreditCard'
 
 import Navbar from '../../components/Navbar'
 import LoadingBackdrop from '../../components/LoadingBackdrop'
@@ -20,7 +21,9 @@ const BaseLayout = ({ children }) => {
       <LoadingBackdrop open={loading} />
       <Navbar menuItems={menuItems} />
 
-      {children}
+      <Container>
+        {children}
+      </Container>
     </>
   )
 }

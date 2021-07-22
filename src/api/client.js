@@ -28,6 +28,8 @@ Client.interceptors.response.use(
   async (error) => {
     const { config, response } = error
 
+    if (!response) return Promise.reject(error)
+
     const authenticateHeader = response.headers['www-authenticate'] || ''
     const tokenIsExpired = authenticateHeader.match('expired_token')
 
@@ -47,7 +49,7 @@ Client.interceptors.response.use(
       })
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error)
   })
 
 export default Client

@@ -6,7 +6,7 @@ import BaseLayout from '../../components/BaseLayout'
 const Dashboard = () => {
   return (
     <BaseLayout>
-
+      ...
     </BaseLayout>
   )
 }
