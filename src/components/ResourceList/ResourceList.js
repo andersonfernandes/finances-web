@@ -38,7 +38,7 @@ const ResourceList = ({
     <List>
       {items.map((item, index) => {
         return (
-          <ListItem key={item.title}>
+          <ListItem key={item.title} button>
             <ListItemAvatar>
               <Avatar alt={item.title} src={item.icon} />
             </ListItemAvatar>
