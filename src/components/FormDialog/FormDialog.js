@@ -3,6 +3,7 @@ import React from 'react'
 import {
   AppBar,
   Button,
+  Container,
   Dialog,
   IconButton,
   makeStyles,
@@ -15,6 +16,7 @@ import CloseIcon from '@material-ui/icons/Close'
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
+    marginBottom: '50px',
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -34,7 +36,12 @@ const FormDialog = ({ title, saveAction, open, setOpen, children }) => {
   }
 
   return (
-    <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+    <Dialog
+      fullScreen
+      open={open}
+      onClose={handleClose}
+      TransitionComponent={Transition}
+    >
       <AppBar className={classes.appBar}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
@@ -49,7 +56,9 @@ const FormDialog = ({ title, saveAction, open, setOpen, children }) => {
         </Toolbar>
       </AppBar>
 
-      {children}
+      <Container>
+        {children}
+      </Container>
     </Dialog>
   )
 }
