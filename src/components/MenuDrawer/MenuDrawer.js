@@ -9,16 +9,26 @@ import {
   makeStyles,
   SwipeableDrawer,
   Divider,
+  Typography,
+  AppBar,
+  Toolbar,
 } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 import AuthContext from '../../context/AuthContext'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  titleContainer: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  title: {
+    textAlign: 'center',
+    flexGrow: 1,
+  },
   listItem: {
     width: 200,
   },
-})
+}))
 
 const MenuDrawer = ({ open, setOpen, menuItems }) => {
   const { handleLogout } = useContext(AuthContext)
@@ -43,6 +53,16 @@ const MenuDrawer = ({ open, setOpen, menuItems }) => {
       onOpen={(event) => toggleDrawer(event, true)}
       onClose={(event) => toggleDrawer(event, false)}
     >
+      <AppBar position="static" className={classes.titleContainer}>
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Finances App
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Divider />
+
       <List>
         {menuItems.map(item => {
           return (
