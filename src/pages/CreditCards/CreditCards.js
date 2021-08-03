@@ -8,9 +8,13 @@ import { Fab, makeStyles } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 import { allCreditCards, deleteCreditCards } from '../../api/credit_cards'
-import BaseLayout from '../../components/BaseLayout'
 import AppContext from '../../context/AppContext'
-import { default as List } from '../../components/ResourceList'
+
+import {
+  BaseLayout,
+  ResourceList as List,
+} from '../../components'
+
 import Form from './Form'
 
 const useStyles = makeStyles((theme) => ({

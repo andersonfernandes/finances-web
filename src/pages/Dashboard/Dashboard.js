@@ -1,7 +1,6 @@
 import React from 'react'
 
-import BaseLayout from '../../components/BaseLayout'
-
+import { BaseLayout } from '../../components'
 
 const Dashboard = () => {
   return (

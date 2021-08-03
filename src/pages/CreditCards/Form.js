@@ -4,19 +4,23 @@ import React, {
   useState,
 } from 'react'
 
-import FormDialog from '../../components/FormDialog'
 import { allFinancialInstitutions } from '../../api/financial_institutions'
-import AppContext from '../../context/AppContext'
+import { buildRequestFromInputData } from '../../utils/formHelpers'
 import createCreditCard from '../../services/creditCards/creator'
-import TextInput from '../../components/TextInput'
-import SelectInput from '../../components/SelectInput'
+import AppContext from '../../context/AppContext'
+
+import {
+  FormDialog,
+  TextInput,
+  SelectInput,
+} from '../../components'
 
 const initialCreditCard = {
-  name: '',
-  closing_day: '',
-  due_day: '',
-  limit: '',
-  financial_institution_id: '',
+  name: { value: '', hasError: false, errorText: null },
+  closing_day: { value: '', hasError: false, errorText: null },
+  due_day: { value: '', hasError: false, errorText: null },
+  limit: { value: '', hasError: false, errorText: null },
+  financial_institution_id: { value: '', hasError: false, errorText: null },
 }
 
 const Form = ({ open, setOpen }) => {
@@ -41,7 +45,7 @@ const Form = ({ open, setOpen }) => {
   const createAction = () => {
     setLoading(true)
 
-    createCreditCard(creditCard)
+    createCreditCard(buildRequestFromInputData(creditCard))
       .then(() => {
         setOpen(false)
         setCreditCard(initialCreditCard)
@@ -51,7 +55,7 @@ const Form = ({ open, setOpen }) => {
 
   const handleInputChange = (input, value) => {
     const creditCardCopy = { ...creditCard }
-    creditCardCopy[input] = value
+    creditCardCopy[input].value = value
 
     setCreditCard({...creditCardCopy})
   }
@@ -65,35 +69,35 @@ const Form = ({ open, setOpen }) => {
     >
       <TextInput
         required
-        value={creditCard.name}
+        {...creditCard.name}
         label="Name"
         onChange={event => handleInputChange('name', event.target.value)}
       />
 
       <TextInput
         required
-        value={creditCard.closing_day}
+        {...creditCard.closing_day}
         label="Closing Day"
         onChange={event => handleInputChange('closing_day', event.target.value)}
       />
 
       <TextInput
         required
-        value={creditCard.due_day}
+        {...creditCard.due_day}
         label="Due Day"
         onChange={event => handleInputChange('due_day', event.target.value)}
       />
 
       <TextInput
         required
-        value={creditCard.limit}
+        {...creditCard.limit}
         label="Limit"
         onChange={event => handleInputChange('limit', event.target.value)}
       />
 
       <SelectInput
         required
-        value={creditCard.financial_institution_id}
+        {...creditCard.financial_institution_id}
         label="Financial Institution"
         onChange={event => handleInputChange('financial_institution_id', event.target.value)}
         options={financialInstitutions}

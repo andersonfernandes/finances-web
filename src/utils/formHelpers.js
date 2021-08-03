@@ -8,6 +8,15 @@ const generateInputId = label => {
   return `${Date.now}-${formatedLabel}`
 }
 
+const buildRequestFromInputData = inputData => {
+  const requestEntries = Object
+    .entries(inputData)
+    .map(([key, data]) => [key, data.value])
+
+  return Object.fromEntries(requestEntries)
+}
+
 export {
   generateInputId,
+  buildRequestFromInputData,
 }
