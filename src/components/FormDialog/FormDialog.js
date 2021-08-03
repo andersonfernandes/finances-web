@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-const FormDialog = ({ title, saveAction, open, setOpen, children }) => {
+const FormDialog = ({ title, action, open, setOpen, children }) => {
   const classes = useStyles()
 
   const handleClose = () => {
@@ -50,7 +50,7 @@ const FormDialog = ({ title, saveAction, open, setOpen, children }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          <Button autoFocus color="inherit" onClick={saveAction}>
+          <Button autoFocus color="inherit" onClick={action}>
             save
           </Button>
         </Toolbar>

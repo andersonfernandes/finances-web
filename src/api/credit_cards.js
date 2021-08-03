@@ -6,7 +6,7 @@ const allCreditCards = async () => {
   return Client.get(RESOURCE_URL)
 }
 
-const createCreditCard = async ({
+const postCreditCard = async ({
   name,
   closing_day,
   due_day,
@@ -45,7 +45,7 @@ const deleteCreditCards = async (id) => {
 
 export {
   allCreditCards,
-  createCreditCard,
+  postCreditCard,
   updateCreditCard,
   deleteCreditCards,
 }
