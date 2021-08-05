@@ -3,11 +3,15 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import { InputAdornment } from '@material-ui/core'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { allFinancialInstitutions } from '../../api/financial_institutions'
-import { buildRequestFromInputData } from '../../utils/formHelpers'
-import createCreditCard from '../../services/creditCards/creator'
+import { postCreditCard } from '../../api/credit_cards'
+
 import AppContext from '../../context/AppContext'
+import { creditCardDefaults, creditCardSchema } from '../../schemas/creditCard'
 
 import {
   FormDialog,
@@ -15,16 +19,12 @@ import {
   SelectInput,
 } from '../../components'
 
-const initialCreditCard = {
-  name: { value: '', hasError: false, errorText: null },
-  closing_day: { value: '', hasError: false, errorText: null },
-  due_day: { value: '', hasError: false, errorText: null },
-  limit: { value: '', hasError: false, errorText: null },
-  financial_institution_id: { value: '', hasError: false, errorText: null },
-}
-
 const Form = ({ open, setOpen }) => {
-  const [creditCard, setCreditCard] = useState(initialCreditCard)
+  const { control, reset, handleSubmit } = useForm({
+    resolver: yupResolver(creditCardSchema),
+    defaultValues: creditCardDefaults
+  })
+
   const [financialInstitutions, setFinancialInstitutions] = useState([])
   const { setLoading } = useContext(AppContext)
 
@@ -42,64 +42,44 @@ const Form = ({ open, setOpen }) => {
       .finally(() => setLoading(false))
   }, [setLoading])
 
-  const createAction = () => {
+  const createAction = (data) => {
     setLoading(true)
 
-    createCreditCard(buildRequestFromInputData(creditCard))
-      .then(() => {
-        setOpen(false)
-        setCreditCard(initialCreditCard)
+    postCreditCard(data)
+      .then(response => {
+        const { status } = response
+
+        if (status === 201) {
+          setOpen(false)
+          reset()
+        } 
       })
       .finally(() => setLoading(false))
-  }
-
-  const handleInputChange = (input, value) => {
-    const creditCardCopy = { ...creditCard }
-    creditCardCopy[input].value = value
-
-    setCreditCard({...creditCardCopy})
   }
 
   return (
     <FormDialog
       title="Create Credit Card"
-      action={createAction}
+      action={handleSubmit(createAction)}
       open={open}
       setOpen={setOpen}
+      onClose={reset}
     >
+      <TextInput control={control} name="name" label="Name" />
+      <TextInput control={control} name="closing_day" label="Closing Day" />
+      <TextInput control={control} name="due_day" label="Due Day" />
       <TextInput
-        required
-        {...creditCard.name}
-        label="Name"
-        onChange={event => handleInputChange('name', event.target.value)}
-      />
-
-      <TextInput
-        required
-        {...creditCard.closing_day}
-        label="Closing Day"
-        onChange={event => handleInputChange('closing_day', event.target.value)}
-      />
-
-      <TextInput
-        required
-        {...creditCard.due_day}
-        label="Due Day"
-        onChange={event => handleInputChange('due_day', event.target.value)}
-      />
-
-      <TextInput
-        required
-        {...creditCard.limit}
+        control={control}
+        name="limit"
         label="Limit"
-        onChange={event => handleInputChange('limit', event.target.value)}
+        inputProps={{
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
+        }}
       />
-
       <SelectInput
-        required
-        {...creditCard.financial_institution_id}
+        control={control}
+        name={'financial_institution_id'}
         label="Financial Institution"
-        onChange={event => handleInputChange('financial_institution_id', event.target.value)}
         options={financialInstitutions}
       />
     </FormDialog>

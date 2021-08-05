@@ -18,6 +18,7 @@ const TextInput = ({
   control,
   label,
   name,
+  inputProps,
 }) => {
   const classes = useStyles()
 
@@ -33,6 +34,7 @@ const TextInput = ({
             error={invalid}
             helperText={error?.message}
             onChange={onChange}
+            InputProps={inputProps}
           />
         </FormControl>
       )}
