@@ -1,7 +1,5 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react'
+import React from 'react'
+import { Controller } from 'react-hook-form'
 
 import {
   FormControl,
@@ -12,8 +10,6 @@ import {
   Select,
 } from '@material-ui/core'
 
-import { generateInputId } from '../../utils/formHelpers'
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -22,50 +18,46 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SelectInput = ({
-  value,
+  control,
   label,
-  hasError,
-  errorText,
-  onInputChange,
-  options,
-  ...rest
+  name,
+  options
 }) => {
-  const [inputId, setInputId] = useState(null)
   const classes = useStyles()
 
-  useEffect(() => {
-    setInputId(generateInputId(label))
-  }, [label])
-
-
   return (
-    <FormControl
-      className={classes.formControl}
-      error={hasError}
-      variant="outlined">
-      <InputLabel id={`${inputId}-label`}>{label}</InputLabel>
-      <Select
-        id={inputId}
-        labelId={`${inputId}-label`}
-        label={label}
-        value={value}
-        {...rest}
-      >
-        <MenuItem selected value=""><em>None</em></MenuItem>
+    <Controller
+      render={({ field: { onChange, value, ref }, fieldState: { invalid, error } }) => (
+        <FormControl
+          className={classes.formControl}
+          error={invalid}
+          variant="outlined">
+          <InputLabel>{label}</InputLabel>
+          <Select
+            label={label}
+            value={value}
+            onChange={onChange}
+            inputRef={ref}
+          >
+            <MenuItem selected value=""><em>None</em></MenuItem>
 
-        {options.map(option => {
-          return (
-            <MenuItem
-              key={option.id}
-              value={option.id}
-            >
-              {option.name}
-            </MenuItem>
-          )
-        })}
-      </Select>
-      <FormHelperText>{errorText}</FormHelperText>
-    </FormControl>
+            {options.map(option => {
+              return (
+                <MenuItem
+                  key={option.id}
+                  value={option.id}
+                >
+                  {option.name}
+                </MenuItem>
+              )
+            })}
+          </Select>
+          <FormHelperText>{error?.message}</FormHelperText>
+        </FormControl>
+      )}
+      name={name}
+      control={control}
+    />
   )
 }
 

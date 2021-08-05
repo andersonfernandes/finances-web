@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
+import { Controller } from 'react-hook-form'
 
 import {
   FormControl,
@@ -13,44 +14,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const generateInputId = label => {
-  const formatedLabel = label
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g,'-')
-    .replace(/(^-|-$)/g,'')
-
-    return `${Date.now}-${formatedLabel}`
-}
-
 const TextInput = ({
-  value,
+  control,
   label,
-  hasError,
-  errorText,
-  onInputChange,
-  ...rest
+  name,
 }) => {
-  const [inputId, setInputId] = useState(null)
   const classes = useStyles()
 
-  useEffect(() => {
-    setInputId(generateInputId(label))
-  }, [label])
-
-
   return (
-    <FormControl className={classes.formControl}>
-      <TextField
-        id={inputId}
-        variant="outlined"
-        label={label}
-        value={value}
-        error={hasError}
-        helperText={errorText}
-        {...rest}
-      />
-    </FormControl>
+    <Controller
+      render={({ field: { onChange, value, ref }, fieldState: { invalid, error } }) => (
+        <FormControl className={classes.formControl}>
+          <TextField
+            variant="outlined"
+            value={value}
+            label={label}
+            inputRef={ref}
+            error={invalid}
+            helperText={error?.message}
+            onChange={onChange}
+          />
+        </FormControl>
+      )}
+      name={name}
+      control={control}
+    />
   )
 }
 

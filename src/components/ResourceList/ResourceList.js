@@ -11,7 +11,7 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core'
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 const ResourceList = ({
   items,

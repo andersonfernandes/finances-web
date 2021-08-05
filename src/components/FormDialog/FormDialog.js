@@ -28,10 +28,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-const FormDialog = ({ title, action, open, setOpen, children }) => {
+const FormDialog = ({
+  title,
+  action,
+  open,
+  setOpen,
+  onClose,
+  children,
+}) => {
   const classes = useStyles()
 
   const handleClose = () => {
+    onClose()
     setOpen(false)
   }
 
