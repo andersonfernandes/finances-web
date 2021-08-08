@@ -7,6 +7,7 @@ import React, {
 import { Fab, makeStyles } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
+import { creditCardResponseToEntity } from '../../utils/parsers/creditCards'
 import { allCreditCards, deleteCreditCards } from '../../api/credit_cards'
 import AppContext from '../../context/AppContext'
 
@@ -31,7 +32,7 @@ const CreditCards = () => {
   const { setLoading } = useContext(AppContext)
   const classes = useStyles()
 
-  useEffect(() => {
+  const loadCreditCards = () => {
     setLoading(true)
 
     allCreditCards()
@@ -39,27 +40,14 @@ const CreditCards = () => {
         const { status, data } = response
 
         if (status === 200) {
-          const parsedData = data.map(item => {
-            const {
-              id,
-              name,
-              account: {
-                financial_institution: { logo_url }
-              }
-            } = item
-
-            return {
-              id: id,
-              title: name,
-              icon: logo_url,
-            }
-          })
-
+          const parsedData = data.map(creditCardResponseToEntity)
           setCreditCards(parsedData)
         }
       })
       .finally(() => setLoading(false))
-  }, [setLoading])
+  }
+
+  useEffect(loadCreditCards, [setLoading])
 
   const handleDelete = (id) => {
     deleteCreditCards(id)
@@ -71,7 +59,7 @@ const CreditCards = () => {
   return (
     <BaseLayout>
       <List items={creditCards} deleteAction={handleDelete} />
-      <Form open={openCreateForm} setOpen={setOpenCreateForm} />
+      <Form open={openCreateForm} setOpen={setOpenCreateForm} loadCreditCards={loadCreditCards} />
 
       <Fab color="primary" className={classes.fab} onClick={() => setOpenCreateForm(true)}>
         <AddIcon />

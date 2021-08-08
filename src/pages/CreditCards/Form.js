@@ -19,7 +19,7 @@ import {
   SelectInput,
 } from '../../components'
 
-const Form = ({ open, setOpen }) => {
+const Form = ({ open, setOpen, loadCreditCards }) => {
   const { control, reset, handleSubmit } = useForm({
     resolver: yupResolver(creditCardSchema),
     defaultValues: creditCardDefaults
@@ -42,14 +42,15 @@ const Form = ({ open, setOpen }) => {
       .finally(() => setLoading(false))
   }, [setLoading])
 
-  const createAction = (data) => {
+  const createAction = (formParams) => {
     setLoading(true)
 
-    postCreditCard(data)
+    postCreditCard(formParams)
       .then(response => {
         const { status } = response
 
         if (status === 201) {
+          loadCreditCards()
           setOpen(false)
           reset()
         } 
