@@ -11,10 +11,10 @@ import Login from './Login'
 import { renderWithContext } from '../../services/customTestingLibrary'
 
 import { authenticate } from '../../adapters/api/authentication'
-import Storage from '../../services/cookieStorage'
+import Storage from '../../adapters/storage/cookieStorage'
 
 jest.mock('../../adapters/api/authentication')
-jest.mock('../../services/cookieStorage')
+jest.mock('../../adapters/storage/cookieStorage')
 
 describe('<Login />', () => {
   beforeEach(() => renderWithContext(<Login />))

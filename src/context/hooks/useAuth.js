@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import { default as ApiClient } from '../../adapters/api/client'
 import { authenticate, revoke } from '../../adapters/api/authentication'
-import Storage from '../../services/cookieStorage'
+import Storage from '../../adapters/storage/cookieStorage'
 
 const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys
 
