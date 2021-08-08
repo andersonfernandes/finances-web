@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react'
 
 import Login from './Login'
-import { renderWithContext } from '../../services/customTestingLibrary'
+import { renderWithContext } from '../../adapters/test/customTestingLibrary'
 
 import { authenticate } from '../../adapters/api/authentication'
 import Storage from '../../adapters/storage/cookieStorage'

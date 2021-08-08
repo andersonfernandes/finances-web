@@ -11,7 +11,7 @@ import { allFinancialInstitutions } from '../../adapters/api/financialInstitutio
 import { postCreditCard } from '../../adapters/api/creditCards'
 
 import AppContext from '../../context/AppContext'
-import { creditCardDefaults, creditCardSchema } from '../../schemas/creditCard'
+import { creditCardDefaults, creditCardSchema } from '../../adapters/schemas/creditCard'
 
 import {
   FormDialog,

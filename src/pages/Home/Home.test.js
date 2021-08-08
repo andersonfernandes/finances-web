@@ -2,7 +2,7 @@ import React from 'react'
 import { cleanup, screen } from '@testing-library/react'
 
 import Home from './Home'
-import { renderWithContext } from '../../services/customTestingLibrary'
+import { renderWithContext } from '../../adapters/test/customTestingLibrary'
 
 describe('<Home />', () => {
   beforeEach(() => renderWithContext(<Home />))

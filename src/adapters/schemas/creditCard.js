@@ -1,7 +1,6 @@
 import * as yup from 'yup'
 
-import { ErrorMessages } from './messages'
-const { REQUIRED, NUMBER, SELECT, MAX, MIN } = ErrorMessages
+import { REQUIRED, NUMBER, SELECT, MAX, MIN } from './defaultMessages'
 
 const creditCardSchema = yup.object().shape({
   name: yup.string().required(REQUIRED),
