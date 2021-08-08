@@ -7,8 +7,8 @@ import { InputAdornment } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { allFinancialInstitutions } from '../../api/financial_institutions'
-import { postCreditCard } from '../../api/credit_cards'
+import { allFinancialInstitutions } from '../../adapters/api/financialInstitutions'
+import { postCreditCard } from '../../adapters/api/creditCards'
 
 import AppContext from '../../context/AppContext'
 import { creditCardDefaults, creditCardSchema } from '../../schemas/creditCard'

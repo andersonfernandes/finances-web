@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import Storage from '../services/cookieStorage'
+import Storage from '../../services/cookieStorage'
 import { refresh } from './authentication'
 
 const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys

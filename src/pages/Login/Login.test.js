@@ -10,10 +10,10 @@ import {
 import Login from './Login'
 import { renderWithContext } from '../../services/customTestingLibrary'
 
-import { authenticate } from '../../api/authentication'
+import { authenticate } from '../../adapters/api/authentication'
 import Storage from '../../services/cookieStorage'
 
-jest.mock('../../api/authentication')
+jest.mock('../../adapters/api/authentication')
 jest.mock('../../services/cookieStorage')
 
 describe('<Login />', () => {

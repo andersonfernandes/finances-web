@@ -8,7 +8,7 @@ import { Fab, makeStyles } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 import { creditCardResponseToEntity } from '../../utils/parsers/creditCards'
-import { allCreditCards, deleteCreditCards } from '../../api/credit_cards'
+import { allCreditCards, deleteCreditCards } from '../../adapters/api/creditCards'
 import AppContext from '../../context/AppContext'
 
 import {
