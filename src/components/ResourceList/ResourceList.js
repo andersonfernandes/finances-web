@@ -15,8 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 const ResourceList = ({
   items,
-  editAction,
-  deleteAction,
+  actionsMenu,
 }) => {
   const [itemMenuAnchorEl, setItemMenuAnchorEl] = useState(
     new Array(items.length).fill(null)
@@ -29,9 +28,9 @@ const ResourceList = ({
     })
   }
 
-  const handleAction = (index, itemId, action) => {
+  const handleAction = (index, item, action) => {
     handleMenuToggle(index, null)
-    if (action) action(itemId) 
+    if (action) action(item) 
   }
 
   return (
@@ -59,8 +58,13 @@ const ResourceList = ({
                 open={Boolean(itemMenuAnchorEl[index])}
                 onClose={() => handleMenuToggle(index, null)}
               >
-                <MenuItem onClick={() => handleAction(index, item.id, editAction)}>Edit</MenuItem>
-                <MenuItem onClick={() => handleAction(index, item.id, deleteAction)}>Delete</MenuItem>
+                {actionsMenu.map(actionItem => {
+                  return ( 
+                    <MenuItem key={actionItem.title} onClick={() => handleAction(index, item, actionItem.action)}>
+                      {actionItem.title}
+                    </MenuItem>
+                  )
+                })}
               </Menu>
             </ListItemSecondaryAction>
           </ListItem>

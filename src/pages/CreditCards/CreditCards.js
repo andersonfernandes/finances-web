@@ -49,16 +49,23 @@ const CreditCards = () => {
 
   useEffect(loadCreditCards, [setLoading])
 
-  const handleDelete = (id) => {
-    deleteCreditCards(id)
+  const handleEdit = (creditCard) => alert('Future Work') 
+
+  const handleDelete = (creditCard) => {
+    deleteCreditCards(creditCard.id)
       .then(() => {
         loadCreditCards()
       })
   }
 
+  const actionsMenu = [
+    { title: 'Edit', action: handleEdit },
+    { title: 'Delete', action: handleDelete },
+  ]
+
   return (
     <BaseLayout>
-      <List items={creditCards} deleteAction={handleDelete} />
+      <List items={creditCards} actionsMenu={actionsMenu} />
       <Form open={openCreateForm} setOpen={setOpenCreateForm} loadCreditCards={loadCreditCards} />
 
       <Fab color="primary" className={classes.fab} onClick={() => setOpenCreateForm(true)}>
