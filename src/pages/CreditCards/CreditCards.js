@@ -7,8 +7,9 @@ import React, {
 import { Fab, makeStyles } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
-import { creditCardResponseToEntity } from '../../adapters/parsers/creditCards'
-import { allCreditCards, deleteCreditCards } from '../../adapters/api/creditCards'
+import { creditCardResponseToFullEntity, creditCardResponseToSimpleEntity } from '../../adapters/parsers/creditCards'
+import { allCreditCards, deleteCreditCards, fetchCreditCard } from '../../adapters/api/creditCards'
+import { creditCardDefaults } from '../../adapters/schemas/creditCard'
 import AppContext from '../../context/AppContext'
 
 import {
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 const CreditCards = () => {
   const [creditCards, setCreditCards] = useState([])
   const [openCreateForm, setOpenCreateForm] = useState(false)
+  const [formValues, setFormValues] = useState(creditCardDefaults)
+
   const { setLoading } = useContext(AppContext)
   const classes = useStyles()
 
@@ -40,7 +43,7 @@ const CreditCards = () => {
         const { status, data } = response
 
         if (status === 200) {
-          const parsedData = data.map(creditCardResponseToEntity)
+          const parsedData = data.map(creditCardResponseToSimpleEntity)
           setCreditCards(parsedData)
         }
       })
@@ -49,7 +52,25 @@ const CreditCards = () => {
 
   useEffect(loadCreditCards, [setLoading])
 
-  const handleEdit = (creditCard) => alert('Future Work') 
+  const handleCreate = () => {
+    setFormValues(creditCardDefaults)
+    setOpenCreateForm(true)
+  }
+
+  const handleEdit = (creditCard) => {
+    setLoading(true)
+
+    fetchCreditCard(creditCard.id)
+      .then((response => {
+        const { status, data } = response
+
+        if (status === 200) {
+          setFormValues(creditCardResponseToFullEntity(data))
+          setOpenCreateForm(true)
+        }
+      }))
+      .finally(() => setLoading(false))
+  }
 
   const handleDelete = (creditCard) => {
     deleteCreditCards(creditCard.id)
@@ -66,9 +87,14 @@ const CreditCards = () => {
   return (
     <BaseLayout>
       <List items={creditCards} actionsMenu={actionsMenu} />
-      <Form open={openCreateForm} setOpen={setOpenCreateForm} loadCreditCards={loadCreditCards} />
+      <Form
+        open={openCreateForm}
+        setOpen={setOpenCreateForm}
+        creditCard={formValues}
+        loadCreditCards={loadCreditCards}
+      />
 
-      <Fab color="primary" className={classes.fab} onClick={() => setOpenCreateForm(true)}>
+      <Fab color="primary" className={classes.fab} onClick={handleCreate}>
         <AddIcon />
       </Fab>
     </BaseLayout>

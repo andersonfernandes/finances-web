@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { allFinancialInstitutions } from '../../adapters/api/financialInstitutions'
-import { postCreditCard } from '../../adapters/api/creditCards'
+import { postCreditCard, putCreditCard } from '../../adapters/api/creditCards'
 
 import AppContext from '../../context/AppContext'
 import { creditCardDefaults, creditCardSchema } from '../../adapters/schemas/creditCard'
@@ -19,14 +19,17 @@ import {
   SelectInput,
 } from '../../components'
 
-const Form = ({ open, setOpen, loadCreditCards }) => {
+const Form = ({ open, setOpen, loadCreditCards, creditCard }) => {
   const { control, reset, handleSubmit } = useForm({
     resolver: yupResolver(creditCardSchema),
-    defaultValues: creditCardDefaults
+    reValidateMode: 'onChange',
+    defaultValues: creditCardDefaults,
   })
 
   const [financialInstitutions, setFinancialInstitutions] = useState([])
   const { setLoading } = useContext(AppContext)
+
+  useEffect(() => reset(creditCard), [creditCard, reset])
 
   useEffect(() => {
     setLoading(true)
@@ -42,26 +45,27 @@ const Form = ({ open, setOpen, loadCreditCards }) => {
       .finally(() => setLoading(false))
   }, [setLoading])
 
-  const createAction = (formParams) => {
+  const handleAction = (formParams) => {
+    const processAction = formParams.id ? putCreditCard : postCreditCard
+
     setLoading(true)
 
-    postCreditCard(formParams)
+    processAction(formParams)
       .then(response => {
         const { status } = response
 
-        if (status === 201) {
+        if ([200, 201].includes(status)) {
           loadCreditCards()
           setOpen(false)
-          reset()
         } 
       })
       .finally(() => setLoading(false))
-  }
+  } 
 
   return (
     <FormDialog
       title="Create Credit Card"
-      action={handleSubmit(createAction)}
+      action={handleSubmit(handleAction)}
       open={open}
       setOpen={setOpen}
       onClose={reset}
