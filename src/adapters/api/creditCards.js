@@ -43,7 +43,7 @@ const putCreditCard = async ({
   })
 }
 
-const deleteCreditCards = async (id) => {
+const deleteCreditCard = async (id) => {
   return Client.delete(`${RESOURCE_URL}/${id}`)
 }
 
@@ -52,5 +52,5 @@ export {
   fetchCreditCard,
   postCreditCard,
   putCreditCard,
-  deleteCreditCards,
+  deleteCreditCard,
 }

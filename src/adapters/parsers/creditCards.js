@@ -1,4 +1,4 @@
-export const creditCardResponseToSimpleEntity = (creditCardResponse) => {
+export const creditCardResponseToListEntity = (creditCardResponse) => {
   const {
     id,
     name,
@@ -30,6 +30,7 @@ export const creditCardResponseToFullEntity = (creditCardResponse) => {
     closing_day,
     due_day,
     limit,
+    financial_institution,
     financial_institution_id: financial_institution.id,
   }
 }

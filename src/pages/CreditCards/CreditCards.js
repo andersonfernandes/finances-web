@@ -7,8 +7,7 @@ import React, {
 import { Fab, makeStyles } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
-import { creditCardResponseToFullEntity, creditCardResponseToSimpleEntity } from '../../adapters/parsers/creditCards'
-import { allCreditCards, deleteCreditCards, fetchCreditCard } from '../../adapters/api/creditCards'
+import CreditCardsService from '../../adapters/services/CreditCardsService'
 import { creditCardDefaults } from '../../adapters/schemas/creditCard'
 import AppContext from '../../context/AppContext'
 
@@ -38,16 +37,11 @@ const CreditCards = () => {
   const loadCreditCards = () => {
     setLoading(true)
 
-    allCreditCards()
-      .then(response => {
-        const { status, data } = response
-
-        if (status === 200) {
-          const parsedData = data.map(creditCardResponseToSimpleEntity)
-          setCreditCards(parsedData)
-        }
+    CreditCardsService.loadCreditCards()
+      .then(data => {
+        setCreditCards(data)
+        setLoading(false)
       })
-      .finally(() => setLoading(false))
   }
 
   useEffect(loadCreditCards, [setLoading])
@@ -60,23 +54,17 @@ const CreditCards = () => {
   const handleEdit = (creditCard) => {
     setLoading(true)
 
-    fetchCreditCard(creditCard.id)
-      .then((response => {
-        const { status, data } = response
-
-        if (status === 200) {
-          setFormValues(creditCardResponseToFullEntity(data))
-          setOpenCreateForm(true)
-        }
-      }))
-      .finally(() => setLoading(false))
+    CreditCardsService.loadCreditCardById(creditCard.id)
+      .then(data => {
+        setFormValues(data)
+        setOpenCreateForm(true)
+        setLoading(false)
+      })
   }
 
   const handleDelete = (creditCard) => {
-    deleteCreditCards(creditCard.id)
-      .then(() => {
-        loadCreditCards()
-      })
+    CreditCardsService.deleteCreditCard(creditCard.id)
+      .then(loadCreditCards)
   }
 
   const actionsMenu = [
