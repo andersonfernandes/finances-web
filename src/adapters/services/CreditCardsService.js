@@ -2,6 +2,8 @@ import {
   allCreditCards,
   deleteCreditCard,
   fetchCreditCard,
+  postCreditCard,
+  putCreditCard,
 } from "../api/creditCards"
 import { creditCardResponseToFullEntity, creditCardResponseToListEntity } from "../parsers/creditCards"
 
@@ -36,6 +38,24 @@ export default class CreditCardsService {
             reject()
           }
         }))
+        .catch(() => reject())
+    })
+  }
+
+  static saveCreditCard(params) {
+    const saveAction = params.id ? putCreditCard : postCreditCard
+
+    return new Promise((resolve, reject) => {
+      saveAction(params)
+        .then(response => {
+          const { status } = response
+
+          if ([200, 201].includes(status)) {
+            resolve()
+          } else {
+            reject()
+          }
+        })
         .catch(() => reject())
     })
   }
