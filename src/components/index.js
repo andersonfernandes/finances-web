@@ -3,6 +3,7 @@ export { default as LoadingBackdrop } from './LoadingBackdrop'
 
 export { default as MenuDrawer } from './MenuDrawer'
 export { default as Navbar } from './Navbar'
+export { default as ConfirmDialog } from './ConfirmDialog'
 
 export { default as ResourceList } from './ResourceList'
 
