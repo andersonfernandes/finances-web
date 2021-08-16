@@ -9,6 +9,14 @@ import {
   DialogTitle,
 } from '@material-ui/core'
 
+const renderContent = (message) => {
+  return (
+    <DialogContent>
+      <DialogContentText>{message}</DialogContentText>
+    </DialogContent>
+  )
+}
+
 const ConfirmDialog = ({
   open,
   setOpen,
@@ -29,9 +37,7 @@ const ConfirmDialog = ({
     >
       <DialogTitle>{title}</DialogTitle>
 
-      <DialogContent>
-        <DialogContentText>{message}</DialogContentText>
-      </DialogContent>
+      {message && renderContent(message)}
 
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
