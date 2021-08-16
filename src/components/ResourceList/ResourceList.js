@@ -13,6 +13,8 @@ import {
 } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
+import ConfirmDialog from '../ConfirmDialog'
+
 const ResourceList = ({
   items,
   actionsMenu,
@@ -20,6 +22,8 @@ const ResourceList = ({
   const [itemMenuAnchorEl, setItemMenuAnchorEl] = useState(
     new Array(items.length).fill(null)
   )
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
+  const [confirmDialogAction, setConfirmDialogAction] = useState(() => {})
 
   const handleMenuToggle = (index, element) => {
     setItemMenuAnchorEl(prev => {
@@ -28,49 +32,68 @@ const ResourceList = ({
     })
   }
 
-  const handleAction = (index, item, action) => {
+  const handleAction = (index, item, actionItem) => {
     handleMenuToggle(index, null)
-    if (action) action(item) 
+
+    const { action, withConfirmation } = actionItem
+
+    if (withConfirmation) {
+      setOpenConfirmDialog(true)
+      setConfirmDialogAction(() => {
+        return () => action(item)
+      })
+    } else {
+      action(item)
+    }
   }
 
   return (
-    <List>
-      {items.map((item, index) => {
-        return (
-          <ListItem key={item.title} button>
-            <ListItemAvatar>
-              <Avatar alt={item.title} src={item.icon} />
-            </ListItemAvatar>
+    <>
+      <List>
+        {items.map((item, index) => {
+          return (
+            <ListItem key={item.title} button>
+              <ListItemAvatar>
+                <Avatar alt={item.title} src={item.icon} />
+              </ListItemAvatar>
 
-            <ListItemText
-              primary={item.title}
-              secondary={item.subtitle}
-            />
+              <ListItemText
+                primary={item.title}
+                secondary={item.subtitle}
+              />
 
-            <ListItemSecondaryAction>
-              <IconButton onClick={event => handleMenuToggle(index, event.target)}>
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="simple-menu"
-                anchorEl={itemMenuAnchorEl[index]}
-                keepMounted
-                open={Boolean(itemMenuAnchorEl[index])}
-                onClose={() => handleMenuToggle(index, null)}
-              >
-                {actionsMenu.map(actionItem => {
-                  return ( 
-                    <MenuItem key={actionItem.title} onClick={() => handleAction(index, item, actionItem.action)}>
-                      {actionItem.title}
-                    </MenuItem>
-                  )
-                })}
-              </Menu>
-            </ListItemSecondaryAction>
-          </ListItem>
-        )
-      })}
-    </List>
+              <ListItemSecondaryAction>
+                <IconButton onClick={event => handleMenuToggle(index, event.target)}>
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={itemMenuAnchorEl[index]}
+                  keepMounted
+                  open={Boolean(itemMenuAnchorEl[index])}
+                  onClose={() => handleMenuToggle(index, null)}
+                >
+                  {actionsMenu.map(actionItem => {
+                    return ( 
+                      <MenuItem key={actionItem.title} onClick={() => handleAction(index, item, actionItem)}>
+                        {actionItem.title}
+                      </MenuItem>
+                    )
+                  })}
+                </Menu>
+              </ListItemSecondaryAction>
+            </ListItem>
+          )
+        })}
+      </List>
+
+      <ConfirmDialog
+        open={openConfirmDialog}
+        setOpen={setOpenConfirmDialog}
+        confirmAction={confirmDialogAction}
+        title="Are you sure?"
+      />
+    </>
   )
 }
 

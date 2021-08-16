@@ -55,6 +55,7 @@ const Form = ({
 
     CreditCardsService.saveCreditCard(formParams)
       .then(() => {
+        reset(creditCardDefaults)
         loadCreditCards()
         setOpen(false)
         setLoading(false)

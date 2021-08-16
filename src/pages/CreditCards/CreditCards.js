@@ -11,10 +11,7 @@ import CreditCardsService from '../../adapters/services/CreditCardsService'
 import { creditCardDefaults } from '../../adapters/schemas/creditCard'
 import AppContext from '../../context/AppContext'
 
-import {
-  BaseLayout,
-  ResourceList as List,
-} from '../../components'
+import { BaseLayout, ResourceList as List } from '../../components'
 
 import Form from './Form'
 
@@ -69,7 +66,7 @@ const CreditCards = () => {
 
   const actionsMenu = [
     { title: 'Edit', action: handleEdit },
-    { title: 'Delete', action: handleDelete },
+    { title: 'Delete', action: handleDelete, withConfirmation: true },
   ]
 
   return (
