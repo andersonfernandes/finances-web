@@ -1,15 +1,13 @@
 import React, { useContext, useEffect } from 'react'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import TextField from '@material-ui/core/TextField'
 import { Box, Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { Link as RouterLink, useHistory } from 'react-router-dom'
-
-import LoginError from './components/LoginError'
 import AuthContext from '../../context/AuthContext'
 
-import { LoadingBackdrop } from '../../components'
+import { AlertSnackbar, LoadingBackdrop } from '../../components'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,6 +43,7 @@ const Login = () => {
 
   const {
     showErrors,
+    setShowErrors,
     handleLogin,
     loading,
     authenticated,
@@ -128,7 +127,12 @@ const Login = () => {
         <LoadingBackdrop open={loading} />
       </form>
 
-      <LoginError open={showErrors} />
+      <AlertSnackbar
+        open={showErrors}
+        setOpen={setShowErrors}
+        message={'Invalid Email or Password!'}
+        kind={AlertSnackbar.kinds.error}
+      />
     </Box>
   )
 }
