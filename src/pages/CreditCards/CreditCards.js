@@ -11,7 +11,11 @@ import CreditCardsService from '../../adapters/services/CreditCardsService'
 import { creditCardDefaults } from '../../adapters/schemas/creditCard'
 import AppContext from '../../context/AppContext'
 
-import { BaseLayout, ResourceList as List } from '../../components'
+import {
+  AlertSnackbar,
+  BaseLayout,
+  ResourceList as List,
+} from '../../components'
 
 import Form from './Form'
 
@@ -28,7 +32,11 @@ const CreditCards = () => {
   const [openCreateForm, setOpenCreateForm] = useState(false)
   const [formValues, setFormValues] = useState(creditCardDefaults)
 
-  const { setLoading } = useContext(AppContext)
+  const {
+    setLoading,
+    setShowAlert,
+    setAlertData,
+  } = useContext(AppContext)
   const classes = useStyles()
 
   const loadCreditCards = () => {
@@ -61,7 +69,20 @@ const CreditCards = () => {
 
   const handleDelete = (creditCard) => {
     CreditCardsService.deleteCreditCard(creditCard.id)
-      .then(loadCreditCards)
+      .then(() => {
+        loadCreditCards()
+        setAlertData({
+          message: 'Credit Card deleted with success!',
+          kind: AlertSnackbar.kinds.success,
+        })
+      })
+      .catch(() => {
+        setAlertData({
+          message: 'Unabled to delete Credit Card!',
+          kind: AlertSnackbar.kinds.error,
+        })
+      })
+      .finally(() => setShowAlert(true))
   }
 
   const actionsMenu = [

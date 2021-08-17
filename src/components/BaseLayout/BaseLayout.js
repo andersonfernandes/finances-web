@@ -5,12 +5,16 @@ import DashboardIcon from '@material-ui/icons/Dashboard'
 import CreditCardIcon from '@material-ui/icons/CreditCard'
 import ListIcon from '@material-ui/icons/List'
 
-import Navbar from '../../components/Navbar'
-import LoadingBackdrop from '../../components/LoadingBackdrop'
 import AppContext from '../../context/AppContext'
+import { Navbar, LoadingBackdrop, AlertSnackbar } from '../../components'
 
 const BaseLayout = ({ children }) => {
-  const { loading } = useContext(AppContext)
+  const {
+    loading,
+    showAlert,
+    setShowAlert,
+    alertData,
+  } = useContext(AppContext)
 
   const menuItems = [
     { title: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },
@@ -26,6 +30,13 @@ const BaseLayout = ({ children }) => {
       <Container>
         {children}
       </Container>
+
+      <AlertSnackbar
+        open={showAlert}
+        setOpen={setShowAlert}
+        message={alertData.message}
+        kind={alertData.kind}
+      />
     </>
   )
 }
