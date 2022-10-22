@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     width: '30%',
     padding: 50,
     margin: '0 auto',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '100%',
     },
     [theme.breakpoints.only('md')]: {

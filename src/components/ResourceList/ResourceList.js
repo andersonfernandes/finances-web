@@ -47,54 +47,52 @@ const ResourceList = ({
     }
   }
 
-  return (
-    <>
-      <List>
-        {items.map((item, index) => {
-          return (
-            <ListItem key={item.title} button>
-              <ListItemAvatar>
-                <Avatar alt={item.title} src={item.icon} />
-              </ListItemAvatar>
+  return <>
+    <List>
+      {items.map((item, index) => {
+        return (
+          <ListItem key={item.title} button>
+            <ListItemAvatar>
+              <Avatar alt={item.title} src={item.icon} />
+            </ListItemAvatar>
 
-              <ListItemText
-                primary={item.title}
-                secondary={item.subtitle}
-              />
+            <ListItemText
+              primary={item.title}
+              secondary={item.subtitle}
+            />
 
-              <ListItemSecondaryAction>
-                <IconButton onClick={event => handleMenuToggle(index, event.target)}>
-                  <MoreVertIcon />
-                </IconButton>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={itemMenuAnchorEl[index]}
-                  keepMounted
-                  open={Boolean(itemMenuAnchorEl[index])}
-                  onClose={() => handleMenuToggle(index, null)}
-                >
-                  {actionsMenu.map(actionItem => {
-                    return ( 
-                      <MenuItem key={actionItem.title} onClick={() => handleAction(index, item, actionItem)}>
-                        {actionItem.title}
-                      </MenuItem>
-                    )
-                  })}
-                </Menu>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )
-        })}
-      </List>
+            <ListItemSecondaryAction>
+              <IconButton onClick={event => handleMenuToggle(index, event.target)} size="large">
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={itemMenuAnchorEl[index]}
+                keepMounted
+                open={Boolean(itemMenuAnchorEl[index])}
+                onClose={() => handleMenuToggle(index, null)}
+              >
+                {actionsMenu.map(actionItem => {
+                  return ( 
+                    <MenuItem key={actionItem.title} onClick={() => handleAction(index, item, actionItem)}>
+                      {actionItem.title}
+                    </MenuItem>
+                  )
+                })}
+              </Menu>
+            </ListItemSecondaryAction>
+          </ListItem>
+        );
+      })}
+    </List>
 
-      <ConfirmDialog
-        open={openConfirmDialog}
-        setOpen={setOpenConfirmDialog}
-        confirmAction={confirmDialogAction}
-        title="Are you sure?"
-      />
-    </>
-  )
+    <ConfirmDialog
+      open={openConfirmDialog}
+      setOpen={setOpenConfirmDialog}
+      confirmAction={confirmDialogAction}
+      title="Are you sure?"
+    />
+  </>;
 }
 
 export default ResourceList 

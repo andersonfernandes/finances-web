@@ -51,7 +51,7 @@ const Navbar = ({ menuItems }) => {
             color="inherit"
             aria-label="menu"
             onClick={() => setOpenMenu(true)}
-          >
+            size="large">
             <MenuIcon />
           </IconButton>
 
@@ -63,7 +63,7 @@ const Navbar = ({ menuItems }) => {
 
       <MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
     </div>
-  )
+  );
 }
 
 export default Navbar
