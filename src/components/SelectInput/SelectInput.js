@@ -5,10 +5,10 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
-  makeStyles,
   MenuItem,
   Select,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

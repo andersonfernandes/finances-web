@@ -4,8 +4,9 @@ import React, {
   useState,
 } from 'react'
 
-import { Fab, makeStyles } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
+import { Fab } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import AddIcon from '@mui/icons-material/Add'
 
 import CreditCardsService from '../../adapters/services/CreditCardsService'
 import { creditCardDefaults } from '../../adapters/schemas/creditCard'

@@ -6,14 +6,14 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  makeStyles,
   SwipeableDrawer,
   Divider,
   Typography,
   AppBar,
   Toolbar,
-} from '@material-ui/core'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 
 import AuthContext from '../../context/AuthContext'
 

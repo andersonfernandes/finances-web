@@ -4,11 +4,11 @@ import { useLocation } from 'react-router-dom'
 import {
   AppBar,
   IconButton,
-  makeStyles,
   Toolbar,
   Typography,
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import MenuDrawer from '../MenuDrawer'
 

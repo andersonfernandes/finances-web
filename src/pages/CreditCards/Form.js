@@ -3,7 +3,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { InputAdornment } from '@material-ui/core'
+import { InputAdornment } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 

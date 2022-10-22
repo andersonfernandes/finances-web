@@ -3,9 +3,9 @@ import { Controller } from 'react-hook-form'
 
 import {
   FormControl,
-  makeStyles,
   TextField,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

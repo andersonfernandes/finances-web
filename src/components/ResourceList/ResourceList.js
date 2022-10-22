@@ -10,8 +10,8 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-} from '@material-ui/core'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+} from '@mui/material'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 import ConfirmDialog from '../ConfirmDialog'
 
