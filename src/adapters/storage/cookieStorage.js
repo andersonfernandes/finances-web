@@ -6,7 +6,7 @@ const defaultCookieOptions = {
 }
 
 const Storage = {
-  get: Cookies.getJSON,
+  get: Cookies.get,
   set: (key, value) => Cookies.set(key, value, defaultCookieOptions),
   remove: Cookies.remove,
 }
