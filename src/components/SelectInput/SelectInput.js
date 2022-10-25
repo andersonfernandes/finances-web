@@ -5,10 +5,10 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
-  makeStyles,
   MenuItem,
   Select,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -34,11 +34,11 @@ const SelectInput = ({
           variant="outlined">
           <InputLabel>{label}</InputLabel>
           <Select
+            variant="standard"
             label={label}
             value={value}
             onChange={onChange}
-            inputRef={ref}
-          >
+            inputRef={ref}>
             <MenuItem selected value=""><em>None</em></MenuItem>
 
             {options.map(option => {
@@ -58,7 +58,7 @@ const SelectInput = ({
       name={name}
       control={control}
     />
-  )
+  );
 }
 
 export default SelectInput

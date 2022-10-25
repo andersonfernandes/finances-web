@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { IconButton, Snackbar } from '@material-ui/core'
-import MuiAlert from '@material-ui/lab/Alert'
-import CloseIcon from '@material-ui/icons/Close'
+import { IconButton, Snackbar } from '@mui/material'
+import MuiAlert from '@mui/lab/Alert'
+import CloseIcon from '@mui/icons-material/Close'
 
 const AlertSnackbar = ({
   open,

@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 
-import TextField from '@material-ui/core/TextField'
-import { Box, Button, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Grid, Typography, TextField } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 import AuthContext from '../../context/AuthContext'
 
@@ -14,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     width: '30%',
     padding: 50,
     margin: '0 auto',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '100%',
     },
     [theme.breakpoints.only('md')]: {

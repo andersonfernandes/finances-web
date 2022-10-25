@@ -3,9 +3,9 @@ import { Controller } from 'react-hook-form'
 
 import {
   FormControl,
-  makeStyles,
   TextField,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,7 +25,7 @@ const TextInput = ({
   return (
     <Controller
       render={({ field: { onChange, value, ref }, fieldState: { invalid, error } }) => (
-        <FormControl className={classes.formControl}>
+        <FormControl variant="standard" className={classes.formControl}>
           <TextField
             variant="outlined"
             value={value}
@@ -41,7 +41,7 @@ const TextInput = ({
       name={name}
       control={control}
     />
-  )
+  );
 }
 
 export default TextInput

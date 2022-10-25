@@ -6,12 +6,12 @@ import {
   Container,
   Dialog,
   IconButton,
-  makeStyles,
   Slide,
   Toolbar,
   Typography,
-} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import CloseIcon from '@mui/icons-material/Close'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -52,7 +52,12 @@ const FormDialog = ({
     >
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            size="large">
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
@@ -68,7 +73,7 @@ const FormDialog = ({
         {children}
       </Container>
     </Dialog>
-  )
+  );
 }
 
 export default FormDialog

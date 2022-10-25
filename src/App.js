@@ -1,27 +1,29 @@
 import React from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { createTheme, ThemeProvider, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles';
 
 import { AppContextProvider } from './context/AppContext'
 import Routes from './routes'
 
 export default function App() {
-  const darkTheme = createMuiTheme({
+  const darkTheme = createTheme(adaptV4Theme({
     palette: {
-      type: 'dark',
+      mode: 'dark',
       primary: {
         main: '#FB4934',
       },
     },
-  })
+  }))
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
 
-      <AppContextProvider>
-        <Routes />
-      </AppContextProvider>
-    </ThemeProvider>
-  )
+        <AppContextProvider>
+          <Routes />
+        </AppContextProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
