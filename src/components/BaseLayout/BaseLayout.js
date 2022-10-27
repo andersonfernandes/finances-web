@@ -3,7 +3,6 @@ import React, { useContext } from 'react'
 import { Container } from '@mui/material'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import CreditCardIcon from '@mui/icons-material/CreditCard'
-import ListIcon from '@mui/icons-material/List'
 
 import AppContext from '../../context/AppContext'
 import { Navbar, LoadingBackdrop, AlertSnackbar } from '../../components'
@@ -18,7 +17,6 @@ const BaseLayout = ({ children }) => {
 
   const menuItems = [
     { title: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },
-    { title: 'Transactions', path: '/transactions', icon: <ListIcon /> },
     { title: 'Credit Cards', path: '/credit_cards', icon: <CreditCardIcon /> },
   ]
 
