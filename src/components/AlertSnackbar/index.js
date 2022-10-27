@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { IconButton, Snackbar } from '@mui/material'
-import MuiAlert from '@mui/lab/Alert'
+import { IconButton, Snackbar, Alert } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
 const AlertSnackbar = ({
@@ -22,13 +21,13 @@ const AlertSnackbar = ({
         horizontal: 'center',
       }}
     >
-      <MuiAlert severity={kind} variant="filled">
+      <Alert severity={kind} variant="filled">
         {message}
 
         <IconButton size="small" color="inherit" onClick={handleClose}>
           <CloseIcon fontSize="small" />
         </IconButton>
-      </MuiAlert>
+      </Alert>
     </Snackbar>
   )
 }
