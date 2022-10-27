@@ -1,3 +1,5 @@
+export { default as CustomRoute } from './CustomRoute'
+
 export { default as BaseLayout } from './BaseLayout'
 export { default as LoadingBackdrop } from './LoadingBackdrop'
 export { default as ConfirmDialog } from './ConfirmDialog'
