@@ -5,14 +5,14 @@ import Home from './index'
 import { renderWithContext } from '../../adapters/test/customTestingLibrary'
 
 describe('<Home />', () => {
-  beforeEach(() => renderWithContext(<Home />))
-  afterEach(cleanup)
+	beforeEach(() => renderWithContext(<Home />))
+	afterEach(cleanup)
 
-  it('renders the app name', () => {
-    expect(screen.getByText('Finances')).toBeInTheDocument()
-  })
+	it('renders the app name', () => {
+		expect(screen.getByText('Finances')).toBeInTheDocument()
+	})
 
-  it('renders the sign in link', () => {
-    expect(screen.getByText('Sign In')).toBeInTheDocument()
-  })
+	it('renders the sign in link', () => {
+		expect(screen.getByText('Sign In')).toBeInTheDocument()
+	})
 })

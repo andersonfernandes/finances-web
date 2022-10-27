@@ -6,52 +6,52 @@ import { makeStyles } from '@mui/styles'
 import AuthContext from '../../context/AuthContext'
 
 const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    margin: '0 auto',
-    textAlign: 'center',
-  },
-  heading : {
-    marginTop: 150,
-  },
-  button: {
-    marginTop: 150,
-  },
+	root: {
+		width: '100%',
+		margin: '0 auto',
+		textAlign: 'center',
+	},
+	heading : {
+		marginTop: 150,
+	},
+	button: {
+		marginTop: 150,
+	},
 })
 
 const Home = () => {
-  const history = useHistory()
+	const history = useHistory()
 
-  const { authenticated } = useContext(AuthContext)
+	const { authenticated } = useContext(AuthContext)
 
-  useEffect(() => {
-    if (authenticated) history.push('/dashboard')
-  }, [authenticated, history])
+	useEffect(() => {
+		if (authenticated) history.push('/dashboard')
+	}, [authenticated, history])
 
-  const classes = useStyles()
+	const classes = useStyles()
 
-  return (
-    <Box className={classes.root}>
-      <Typography
-        className={classes.heading}
-        variant="h3"
-        align="center"
-      >
+	return (
+		<Box className={classes.root}>
+			<Typography
+				className={classes.heading}
+				variant="h3"
+				align="center"
+			>
         Finances
-      </Typography>
+			</Typography>
 
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        size="large"
-        component={RouterLink}
-        to="/login"
-      >
+			<Button
+				className={classes.button}
+				variant="contained"
+				color="primary"
+				size="large"
+				component={RouterLink}
+				to="/login"
+			>
         Sign In
-      </Button>
-    </Box>
-  )
+			</Button>
+		</Box>
+	)
 }
 
 export default Home

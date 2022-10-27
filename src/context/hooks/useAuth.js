@@ -8,77 +8,77 @@ import Storage from '../../adapters/storage/cookieStorage'
 const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys
 
 export default function useAuth() {
-  const history = useHistory()
+	const history = useHistory()
 
-  const [authenticated, setAuthenticated] = useState(false)
-  const [showErrors, setShowErrors] = useState(false)
-  const [loading, setLoading] = useState(true)
+	const [authenticated, setAuthenticated] = useState(false)
+	const [showErrors, setShowErrors] = useState(false)
+	const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const token = Storage.get(ACCESS_TOKEN)
+	useEffect(() => {
+		const token = Storage.get(ACCESS_TOKEN)
 
-    if (token) {
-      setAuthenticated(true)
-    }
+		if (token) {
+			setAuthenticated(true)
+		}
 
-    setLoading(false)
-  }, [])
+		setLoading(false)
+	}, [])
 
-  const handleLoginErrors = () => {
-    Storage.remove(ACCESS_TOKEN)
-    Storage.remove(REFRESH_TOKEN)
+	const handleLoginErrors = () => {
+		Storage.remove(ACCESS_TOKEN)
+		Storage.remove(REFRESH_TOKEN)
 
-    setAuthenticated(false)
-    setShowErrors(true)
-  }
+		setAuthenticated(false)
+		setShowErrors(true)
+	}
 
-  const handleLogin =  async ({ email, password }) => {
-    setShowErrors(false)
-    setLoading(true)
+	const handleLogin =  async ({ email, password }) => {
+		setShowErrors(false)
+		setLoading(true)
 
-    authenticate({ email, password })
-      .then(response => {
-        if (response.status === 200) {
-          const { access_token, refresh_token } = response.data
-          Storage.set(ACCESS_TOKEN, access_token)
-          Storage.set(REFRESH_TOKEN, refresh_token)
+		authenticate({ email, password })
+			.then(response => {
+				if (response.status === 200) {
+					const { access_token, refresh_token } = response.data
+					Storage.set(ACCESS_TOKEN, access_token)
+					Storage.set(REFRESH_TOKEN, refresh_token)
 
-          ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
+					ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
 
-          setAuthenticated(true)
-          history.push('/dashboard')
-        } else {
-          handleLoginErrors()
-        }
-      })
-      .catch(() => {
-        handleLoginErrors()
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }
+					setAuthenticated(true)
+					history.push('/dashboard')
+				} else {
+					handleLoginErrors()
+				}
+			})
+			.catch(() => {
+				handleLoginErrors()
+			})
+			.finally(() => {
+				setLoading(false)
+			})
+	}
 
-  const handleLogout = async () => {
-    setLoading(true)
-    setAuthenticated(false)
+	const handleLogout = async () => {
+		setLoading(true)
+		setAuthenticated(false)
 
-    revoke()
-      .then(() => {
-        Storage.remove(ACCESS_TOKEN)
-        Storage.remove(REFRESH_TOKEN)
+		revoke()
+			.then(() => {
+				Storage.remove(ACCESS_TOKEN)
+				Storage.remove(REFRESH_TOKEN)
 
-        setLoading(false)
-        history.push('/')
-      })
-  }
+				setLoading(false)
+				history.push('/')
+			})
+	}
 
-  return {
-    authenticated,
-    loading,
-    showErrors,
-    setShowErrors,
-    handleLogin,
-    handleLogout,
-  }
+	return {
+		authenticated,
+		loading,
+		showErrors,
+		setShowErrors,
+		handleLogin,
+		handleLogout,
+	}
 }
