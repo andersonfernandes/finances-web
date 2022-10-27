@@ -73,7 +73,7 @@ const FormDialog = ({
         {children}
       </Container>
     </Dialog>
-  );
+  )
 }
 
 export default FormDialog

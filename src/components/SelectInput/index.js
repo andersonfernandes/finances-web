@@ -58,7 +58,7 @@ const SelectInput = ({
       name={name}
       control={control}
     />
-  );
+  )
 }
 
 export default SelectInput

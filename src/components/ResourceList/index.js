@@ -82,7 +82,7 @@ const ResourceList = ({
               </Menu>
             </ListItemSecondaryAction>
           </ListItem>
-        );
+        )
       })}
     </List>
 
@@ -92,7 +92,7 @@ const ResourceList = ({
       confirmAction={confirmDialogAction}
       title="Are you sure?"
     />
-  </>;
+  </>
 }
 
 export default ResourceList 

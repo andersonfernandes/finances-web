@@ -41,7 +41,7 @@ const TextInput = ({
       name={name}
       control={control}
     />
-  );
+  )
 }
 
 export default TextInput

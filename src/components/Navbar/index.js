@@ -63,7 +63,7 @@ const Navbar = ({ menuItems }) => {
 
       <MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
     </div>
-  );
+  )
 }
 
 export default Navbar
