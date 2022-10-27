@@ -6,15 +6,15 @@ import '@testing-library/jest-dom'
 import { AuthContextProvider } from '../../context/AuthContext'
 
 const renderWithContext = (component) => {
-	return render(
-		<Router>
-			<AuthContextProvider>
-				{component}
-			</AuthContextProvider>
-		</Router>
-	)
+  return render(
+    <Router>
+      <AuthContextProvider>
+        {component}
+      </AuthContextProvider>
+    </Router>
+  )
 }
 
 export {
-	renderWithContext,
+  renderWithContext,
 }

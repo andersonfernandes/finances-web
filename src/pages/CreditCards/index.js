@@ -1,7 +1,7 @@
 import React, {
-	useContext,
-	useEffect,
-	useState,
+  useContext,
+  useEffect,
+  useState,
 } from 'react'
 
 import { Fab } from '@mui/material'
@@ -13,99 +13,99 @@ import { creditCardDefaults } from '../../adapters/schemas/creditCard'
 import AppContext from '../../context/AppContext'
 
 import {
-	AlertSnackbar,
-	BaseLayout,
-	ResourceList as List,
+  AlertSnackbar,
+  BaseLayout,
+  ResourceList as List,
 } from '../../components'
 
 import Form from './Form'
 
 const useStyles = makeStyles((theme) => ({
-	fab: {
-		position: 'absolute',
-		bottom: theme.spacing(2),
-		right: theme.spacing(2),
-	},
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }))
 
 const CreditCards = () => {
-	const [creditCards, setCreditCards] = useState([])
-	const [openCreateForm, setOpenCreateForm] = useState(false)
-	const [formValues, setFormValues] = useState(creditCardDefaults)
+  const [creditCards, setCreditCards] = useState([])
+  const [openCreateForm, setOpenCreateForm] = useState(false)
+  const [formValues, setFormValues] = useState(creditCardDefaults)
 
-	const {
-		setLoading,
-		setShowAlert,
-		setAlertData,
-	} = useContext(AppContext)
-	const classes = useStyles()
+  const {
+    setLoading,
+    setShowAlert,
+    setAlertData,
+  } = useContext(AppContext)
+  const classes = useStyles()
 
-	const loadCreditCards = () => {
-		setLoading(true)
+  const loadCreditCards = () => {
+    setLoading(true)
 
-		CreditCardsService.loadCreditCards()
-			.then(data => {
-				setCreditCards(data)
-				setLoading(false)
-			})
-	}
+    CreditCardsService.loadCreditCards()
+      .then(data => {
+        setCreditCards(data)
+        setLoading(false)
+      })
+  }
 
-	useEffect(loadCreditCards, [setLoading])
+  useEffect(loadCreditCards, [setLoading])
 
-	const handleCreate = () => {
-		setFormValues(creditCardDefaults)
-		setOpenCreateForm(true)
-	}
+  const handleCreate = () => {
+    setFormValues(creditCardDefaults)
+    setOpenCreateForm(true)
+  }
 
-	const handleEdit = (creditCard) => {
-		setLoading(true)
+  const handleEdit = (creditCard) => {
+    setLoading(true)
 
-		CreditCardsService.loadCreditCardById(creditCard.id)
-			.then(data => {
-				setFormValues(data)
-				setOpenCreateForm(true)
-				setLoading(false)
-			})
-	}
+    CreditCardsService.loadCreditCardById(creditCard.id)
+      .then(data => {
+        setFormValues(data)
+        setOpenCreateForm(true)
+        setLoading(false)
+      })
+  }
 
-	const handleDelete = (creditCard) => {
-		CreditCardsService.deleteCreditCard(creditCard.id)
-			.then(() => {
-				loadCreditCards()
-				setAlertData({
-					message: 'Credit Card deleted with success!',
-					kind: AlertSnackbar.kinds.success,
-				})
-			})
-			.catch(() => {
-				setAlertData({
-					message: 'Unabled to delete Credit Card!',
-					kind: AlertSnackbar.kinds.error,
-				})
-			})
-			.finally(() => setShowAlert(true))
-	}
+  const handleDelete = (creditCard) => {
+    CreditCardsService.deleteCreditCard(creditCard.id)
+      .then(() => {
+        loadCreditCards()
+        setAlertData({
+          message: 'Credit Card deleted with success!',
+          kind: AlertSnackbar.kinds.success,
+        })
+      })
+      .catch(() => {
+        setAlertData({
+          message: 'Unabled to delete Credit Card!',
+          kind: AlertSnackbar.kinds.error,
+        })
+      })
+      .finally(() => setShowAlert(true))
+  }
 
-	const actionsMenu = [
-		{ title: 'Edit', action: handleEdit },
-		{ title: 'Delete', action: handleDelete, withConfirmation: true },
-	]
+  const actionsMenu = [
+    { title: 'Edit', action: handleEdit },
+    { title: 'Delete', action: handleDelete, withConfirmation: true },
+  ]
 
-	return (
-		<BaseLayout>
-			<List items={creditCards} actionsMenu={actionsMenu} />
-			<Form
-				open={openCreateForm}
-				setOpen={setOpenCreateForm}
-				creditCard={formValues}
-				loadCreditCards={loadCreditCards}
-			/>
+  return (
+    <BaseLayout>
+      <List items={creditCards} actionsMenu={actionsMenu} />
+      <Form
+        open={openCreateForm}
+        setOpen={setOpenCreateForm}
+        creditCard={formValues}
+        loadCreditCards={loadCreditCards}
+      />
 
-			<Fab color="primary" className={classes.fab} onClick={handleCreate}>
-				<AddIcon />
-			</Fab>
-		</BaseLayout>
-	)
+      <Fab color="primary" className={classes.fab} onClick={handleCreate}>
+        <AddIcon />
+      </Fab>
+    </BaseLayout>
+  )
 }
 
 export default CreditCards

@@ -6,36 +6,36 @@ import useAuth from './hooks/useAuth'
 const AuthContext = createContext()
 
 const AuthContextProvider = ({ children }) => {
-	const {
-		authenticated,
-		loading,
-		showErrors,
-		setShowErrors,
-		handleLogin,
-		handleLogout,
-	} = useAuth()
+  const {
+    authenticated,
+    loading,
+    showErrors,
+    setShowErrors,
+    handleLogin,
+    handleLogout,
+  } = useAuth()
 
-	return (
-		<AuthContext.Provider
-			value={{
-				authenticated,
-				loading,
-				showErrors,
-				setShowErrors,
-				handleLogin,
-				handleLogout,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
-	)
+  return (
+    <AuthContext.Provider
+      value={{
+        authenticated,
+        loading,
+        showErrors,
+        setShowErrors,
+        handleLogin,
+        handleLogout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 AuthContextProvider.propTypes = {
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node,
-	])
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ])
 }
 
 export default AuthContext
