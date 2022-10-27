@@ -1,1 +1,43 @@
-export { default } from './AlertSnackbar'
+import React from 'react'
+
+import { IconButton, Snackbar } from '@mui/material'
+import MuiAlert from '@mui/lab/Alert'
+import CloseIcon from '@mui/icons-material/Close'
+
+const AlertSnackbar = ({
+  open,
+  setOpen,
+  message,
+  kind,
+}) => {
+  const handleClose = () => setOpen(false)
+
+  return (
+    <Snackbar
+      open={open}
+      autoHideDuration={4000}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+    >
+      <MuiAlert severity={kind} variant="filled">
+        {message}
+
+        <IconButton size="small" color="inherit" onClick={handleClose}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </MuiAlert>
+    </Snackbar>
+  )
+}
+
+AlertSnackbar.kinds = {
+  error: 'error',
+  warning: 'warning',
+  info: 'info',
+  success: 'success',
+}
+
+export default AlertSnackbar

@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import {AlertSnackbar} from '../components'
+import { AlertSnackbar } from '../components'
 
 const AppContext = createContext()
 

@@ -7,7 +7,7 @@ import {
   waitFor,
 } from '@testing-library/react'
 
-import Login from './Login'
+import Login from './index'
 import { renderWithContext } from '../../adapters/test/customTestingLibrary'
 
 import { authenticate } from '../../adapters/api/authentication'
