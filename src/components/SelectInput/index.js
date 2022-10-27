@@ -1,5 +1,6 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
+import PropTypes from 'prop-types'
 
 import {
 	FormControl,
@@ -59,6 +60,14 @@ const SelectInput = ({
 			control={control}
 		/>
 	)
+}
+
+// TODO: Check control type
+SelectInput.propTypes = {
+	control: PropTypes.any,
+	label: PropTypes.string,
+	name: PropTypes.string,
+	options: PropTypes.array,
 }
 
 export default SelectInput

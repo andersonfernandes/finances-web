@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {
 	AppBar,
@@ -74,6 +75,18 @@ const FormDialog = ({
 			</Container>
 		</Dialog>
 	)
+}
+
+FormDialog.propTypes = {
+	title: PropTypes.string,
+	action: PropTypes.func,
+	open: PropTypes.bool,
+	setOpen: PropTypes.func,
+	onClose: PropTypes.func,
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	])
 }
 
 export default FormDialog
