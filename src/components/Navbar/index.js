@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import {
 	AppBar,
@@ -64,6 +65,10 @@ const Navbar = ({ menuItems }) => {
 			<MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
 		</div>
 	)
+}
+
+Navbar.propTypes = {
+	menuItems: PropTypes.array,
 }
 
 export default Navbar

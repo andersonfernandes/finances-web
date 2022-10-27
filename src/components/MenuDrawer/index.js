@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import {
 	List,
@@ -99,6 +100,12 @@ const MenuDrawer = ({ open, setOpen, menuItems }) => {
 			</List>
 		</SwipeableDrawer>
 	)
+}
+
+MenuDrawer.propTypes = {
+	open: PropTypes.bool,
+	setOpen: PropTypes.func,
+	menuItems: PropTypes.array,
 }
 
 export default MenuDrawer

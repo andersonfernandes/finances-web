@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {
 	Button,
@@ -49,6 +50,14 @@ const ConfirmDialog = ({
 			</DialogActions>
 		</Dialog>
 	)
+}
+
+ConfirmDialog.propTypes = {
+	open: PropTypes.bool,
+	setOpen: PropTypes.func,
+	title: PropTypes.string,
+	message: PropTypes.string,
+	confirmAction: PropTypes.func,
 }
 
 export default ConfirmDialog

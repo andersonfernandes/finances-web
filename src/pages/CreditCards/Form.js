@@ -114,7 +114,7 @@ Form.propTypes = {
 	open: PropTypes.bool,
 	setOpen: PropTypes.func,
 	loadCreditCards: PropTypes.func,
-	creditCard: PropTypes.objectOf(PropTypes.shape({ id: PropTypes.number }))
+	creditCard: PropTypes.object,
 }
 
 export default Form

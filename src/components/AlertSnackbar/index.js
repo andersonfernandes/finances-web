@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { IconButton, Snackbar, Alert } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
@@ -37,6 +38,13 @@ AlertSnackbar.kinds = {
 	warning: 'warning',
 	info: 'info',
 	success: 'success',
+}
+
+AlertSnackbar.propTypes = {
+	open: PropTypes.bool,
+	setOpen: PropTypes.func,
+	message: PropTypes.string,
+	kind: PropTypes.string,
 }
 
 export default AlertSnackbar

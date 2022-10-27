@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import {
 	Avatar,
@@ -93,6 +94,11 @@ const ResourceList = ({
 			title="Are you sure?"
 		/>
 	</>
+}
+
+ResourceList.propTypes = {
+	items: PropTypes.array,
+	actionsMenu: PropTypes.array,
 }
 
 export default ResourceList 

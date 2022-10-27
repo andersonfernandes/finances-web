@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 
 import { Container } from '@mui/material'
 import DashboardIcon from '@mui/icons-material/Dashboard'
@@ -37,6 +38,13 @@ const BaseLayout = ({ children }) => {
 			/>
 		</>
 	)
+}
+
+BaseLayout.propTypes = {
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	])
 }
 
 export default BaseLayout
