@@ -1,4 +1,6 @@
 import React, { createContext } from 'react'
+import PropTypes from 'prop-types'
+
 import useAuth from './hooks/useAuth'
 
 const AuthContext = createContext()
@@ -27,6 +29,13 @@ const AuthContextProvider = ({ children }) => {
 			{children}
 		</AuthContext.Provider>
 	)
+}
+
+AuthContextProvider.propTypes = {
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	])
 }
 
 export default AuthContext
