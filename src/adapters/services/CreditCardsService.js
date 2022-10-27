@@ -4,8 +4,8 @@ import {
   fetchCreditCard,
   postCreditCard,
   putCreditCard,
-} from "../api/creditCards"
-import { creditCardResponseToFullEntity, creditCardResponseToListEntity } from "../parsers/creditCards"
+} from '../api/creditCards'
+import { creditCardResponseToFullEntity, creditCardResponseToListEntity } from '../parsers/creditCards'
 
 export default class CreditCardsService {
   static loadCreditCards() {

@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import PropTypes from 'prop-types'
 import { InputAdornment } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -107,6 +108,13 @@ const Form = ({
       />
     </FormDialog>
   )
+}
+
+Form.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+  loadCreditCards: PropTypes.func,
+  creditCard: PropTypes.object,
 }
 
 export default Form

@@ -7,11 +7,8 @@ import {
   waitFor,
 } from '@testing-library/react'
 
-import Login from './Login'
+import Login from './index'
 import { renderWithContext } from '../../adapters/test/customTestingLibrary'
-
-import { authenticate } from '../../adapters/api/authentication'
-import Storage from '../../adapters/storage/cookieStorage'
 
 jest.mock('../../adapters/api/authentication')
 jest.mock('../../adapters/storage/cookieStorage')
@@ -38,7 +35,7 @@ describe('<Login />', () => {
       await act(async () => fireEvent.submit(screen.getByText('Enter')))
 
       // await waitFor(() => {
-        // expect(authenticateSpy).toHaveBeenCalledTimes(1)
+      // expect(authenticateSpy).toHaveBeenCalledTimes(1)
       // })
     })
   })

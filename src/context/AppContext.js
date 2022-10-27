@@ -1,5 +1,7 @@
 import React, { createContext, useState } from 'react'
-import {AlertSnackbar} from '../components'
+import PropTypes from 'prop-types'
+
+import { AlertSnackbar } from '../components'
 
 const AppContext = createContext()
 
@@ -25,6 +27,13 @@ const AppContextProvider = ({ children }) => {
       {children}
     </AppContext.Provider>
   )
+}
+
+AppContextProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 }
 
 export default AppContext

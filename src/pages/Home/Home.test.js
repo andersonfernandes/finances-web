@@ -1,7 +1,7 @@
 import React from 'react'
 import { cleanup, screen } from '@testing-library/react'
 
-import Home from './Home'
+import Home from './index'
 import { renderWithContext } from '../../adapters/test/customTestingLibrary'
 
 describe('<Home />', () => {
