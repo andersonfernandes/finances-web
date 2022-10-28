@@ -10,8 +10,10 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import MenuIcon from '@mui/icons-material/Menu'
+import SwitchAccountIcon from '@mui/icons-material/SwitchAccount'
 
 import MenuDrawer from '../MenuDrawer'
+import AccountSwitcher from '../AccountSwitcher'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +32,7 @@ const Navbar = ({ menuItems }) => {
   const location = useLocation()
 
   const [openMenu, setOpenMenu] = useState(false)
+  const [openAccountsSwtcher, setOpenAccountsSwtcher] = useState(false)
   const [title, setTitle] = useState('')
 
   const classes = useStyles()
@@ -59,10 +62,19 @@ const Navbar = ({ menuItems }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
+
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={() => setOpenAccountsSwtcher(true)}
+            size="large">
+            <SwitchAccountIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
 
       <MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
+      <AccountSwitcher open={openAccountsSwtcher} setOpen={setOpenAccountsSwtcher} />
     </div>
   )
 }
