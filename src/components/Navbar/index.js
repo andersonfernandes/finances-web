@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -14,6 +14,7 @@ import SwitchAccountIcon from '@mui/icons-material/SwitchAccount'
 
 import MenuDrawer from '../MenuDrawer'
 import AccountSwitcher from '../AccountSwitcher'
+import AppContext from '../../context/AppContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,6 +35,8 @@ const Navbar = ({ menuItems }) => {
   const [openMenu, setOpenMenu] = useState(false)
   const [openAccountsSwtcher, setOpenAccountsSwtcher] = useState(false)
   const [title, setTitle] = useState('')
+
+  const { currentAccount } = useContext(AppContext)
 
   const classes = useStyles()
 
@@ -60,7 +63,7 @@ const Navbar = ({ menuItems }) => {
           </IconButton>
 
           <Typography variant="h6" className={classes.title}>
-            {title}
+            {`${title} - ${currentAccount && currentAccount.name}`}
           </Typography>
 
           <IconButton

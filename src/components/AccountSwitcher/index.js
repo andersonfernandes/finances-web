@@ -13,7 +13,7 @@ const AccountSwitcher = ({
 }) => {
   const [accounts, setAccounts] = useState([])
 
-  const { setLoading } = useContext(AppContext)
+  const { setLoading, handleAccountSwitch } = useContext(AppContext)
 
   useEffect(() => {
     setLoading(true)
@@ -25,6 +25,11 @@ const AccountSwitcher = ({
       })
   }, [])
 
+  const handleAccountClick = (account) => {
+    handleAccountSwitch(account) 
+    setOpen(false)
+  }
+
   return (
     <FormDialog
       open={open}
@@ -34,7 +39,7 @@ const AccountSwitcher = ({
       <List>
         {accounts.map(account => (
           <ListItem disablePadding key={account.name}>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleAccountClick(account)}>
               <ListItemText primary={account.name} />
             </ListItemButton>
           </ListItem>

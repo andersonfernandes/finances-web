@@ -18,8 +18,15 @@ export default function useApp() {
     })
   }, [])
 
+  const handleAccountSwitch = (newAccount) => {
+    if (!currentAccount || newAccount.id != currentAccount.id) {
+      setCurrentAccount(newAccount)
+    }
+  }
+
   return {
     currentAccount,
+    handleAccountSwitch,
     loading,
     setLoading,
     showAlert,
