@@ -44,6 +44,12 @@ const FormDialog = ({
     setOpen(false)
   }
 
+  const ActionButton = () => (
+    <Button autoFocus color="inherit" onClick={action}>
+      save
+    </Button>
+  )
+
   return (
     <Dialog
       fullScreen
@@ -61,12 +67,12 @@ const FormDialog = ({
             size="large">
             <CloseIcon />
           </IconButton>
+          
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          <Button autoFocus color="inherit" onClick={action}>
-            save
-          </Button>
+
+          {action && <ActionButton />}
         </Toolbar>
       </AppBar>
 
@@ -87,6 +93,10 @@ FormDialog.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ])
+}
+
+FormDialog.defaultProps = {
+  onClose: () => {},
 }
 
 export default FormDialog

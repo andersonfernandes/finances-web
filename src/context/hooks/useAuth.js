@@ -5,7 +5,7 @@ import { default as ApiClient } from '../../adapters/api/client'
 import { authenticate, revoke } from '../../adapters/api/authentication'
 import Storage from '../../adapters/storage/cookieStorage'
 
-const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys
+const { ACCESS_TOKEN, REFRESH_TOKEN, CURRENT_ACCOUNT } = Storage.Keys
 
 export default function useAuth() {
   const history = useHistory()
@@ -67,6 +67,7 @@ export default function useAuth() {
       .then(() => {
         Storage.remove(ACCESS_TOKEN)
         Storage.remove(REFRESH_TOKEN)
+        Storage.remove(CURRENT_ACCOUNT)
 
         setLoading(false)
         history.push('/')

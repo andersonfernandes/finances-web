@@ -1,21 +1,27 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext } from 'react'
 import PropTypes from 'prop-types'
 
-import { AlertSnackbar } from '../components'
+import useApp from './hooks/useApp'
 
 const AppContext = createContext()
 
 const AppContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertData, setAlertData] = useState({
-    message: '',
-    kind: AlertSnackbar.kinds.info,
-  })
+  const {
+    currentAccount,
+    handleAccountSwitch,
+    loading,
+    setLoading,
+    showAlert,
+    setShowAlert,
+    alertData,
+    setAlertData,
+  } = useApp()
 
   return (
     <AppContext.Provider
       value={{
+        currentAccount,
+        handleAccountSwitch,
         loading,
         setLoading,
         showAlert,

@@ -5,6 +5,7 @@ export { default as LoadingBackdrop } from './LoadingBackdrop'
 export { default as ConfirmDialog } from './ConfirmDialog'
 export { default as AlertSnackbar } from './AlertSnackbar'
 
+export { default as AccountSwitcher } from './AccountSwitcher'
 export { default as MenuDrawer } from './MenuDrawer'
 export { default as Navbar } from './Navbar'
 
