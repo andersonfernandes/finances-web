@@ -7,7 +7,9 @@ const AppContext = createContext()
 
 const AppContextProvider = ({ children }) => {
   const {
+    initCurrentAccount,
     currentAccount,
+    showAccountSwitcher,
     handleAccountSwitch,
     loading,
     setLoading,
@@ -20,7 +22,9 @@ const AppContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        initCurrentAccount,
         currentAccount,
+        showAccountSwitcher,
         handleAccountSwitch,
         loading,
         setLoading,

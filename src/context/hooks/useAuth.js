@@ -36,27 +36,32 @@ export default function useAuth() {
     setShowErrors(false)
     setLoading(true)
 
-    authenticate({ email, password })
-      .then(response => {
-        if (response.status === 200) {
-          const { access_token, refresh_token } = response.data
-          Storage.set(ACCESS_TOKEN, access_token)
-          Storage.set(REFRESH_TOKEN, refresh_token)
+    return new Promise((resolve, reject) => {
+      authenticate({ email, password })
+        .then(response => {
+          if (response.status === 200) {
+            const { access_token, refresh_token } = response.data
+            Storage.set(ACCESS_TOKEN, access_token)
+            Storage.set(REFRESH_TOKEN, refresh_token)
 
-          ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
+            ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
 
-          setAuthenticated(true)
-          history.push('/dashboard')
-        } else {
+            setAuthenticated(true)
+            history.push('/dashboard')
+            resolve()
+          } else {
+            handleLoginErrors()
+            reject()
+          }
+        })
+        .catch(() => {
           handleLoginErrors()
-        }
-      })
-      .catch(() => {
-        handleLoginErrors()
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+          reject()
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    })
   }
 
   const handleLogout = async () => {

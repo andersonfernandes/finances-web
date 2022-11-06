@@ -36,7 +36,7 @@ const Navbar = ({ menuItems }) => {
   const [openAccountsSwtcher, setOpenAccountsSwtcher] = useState(false)
   const [title, setTitle] = useState('')
 
-  const { currentAccount } = useContext(AppContext)
+  const { currentAccount, showAccountSwitcher } = useContext(AppContext)
 
   const classes = useStyles()
 
@@ -47,6 +47,10 @@ const Navbar = ({ menuItems }) => {
 
     setTitle(currentMenuItem.title)
   }, [location, menuItems])
+
+  useEffect(() => {
+    if (showAccountSwitcher) setOpenAccountsSwtcher(true)
+  }, [showAccountSwitcher])
 
   return (
     <div className={classes.root}>
@@ -77,7 +81,11 @@ const Navbar = ({ menuItems }) => {
       </AppBar>
 
       <MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
-      <AccountSwitcher open={openAccountsSwtcher} setOpen={setOpenAccountsSwtcher} />
+      <AccountSwitcher
+        open={openAccountsSwtcher}
+        setOpen={setOpenAccountsSwtcher}
+        canBeClosed={!!currentAccount}
+      />
     </div>
   )
 }
