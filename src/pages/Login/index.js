@@ -7,6 +7,7 @@ import { makeStyles } from '@mui/styles'
 import AuthContext from '../../context/AuthContext'
 
 import { AlertSnackbar, LoadingBackdrop } from '../../components'
+import AppContext from '../../context/AppContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,9 +49,11 @@ const Login = () => {
     authenticated,
   } = useContext(AuthContext)
 
+  const { initCurrentAccount } = useContext(AppContext)
+
   const login = (event) => {
     event.preventDefault()
-    handleLogin({ email, password })
+    handleLogin({ email, password }).then(initCurrentAccount)
   }
 
   useEffect(() => {
