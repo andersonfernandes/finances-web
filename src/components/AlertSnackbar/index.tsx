@@ -1,15 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-import { IconButton, Snackbar, Alert } from '@mui/material'
+import { IconButton, Snackbar, Alert, AlertColor } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+
+type Props = {
+  open: boolean,
+  setOpen: (value: boolean) => void,
+  message: string,
+  kind: AlertColor
+}
 
 const AlertSnackbar = ({
   open,
   setOpen,
   message,
   kind,
-}) => {
+}: Props) => {
   const handleClose = () => setOpen(false)
 
   return (
@@ -38,13 +44,6 @@ AlertSnackbar.kinds = {
   warning: 'warning',
   info: 'info',
   success: 'success',
-}
-
-AlertSnackbar.propTypes = {
-  open: PropTypes.bool,
-  setOpen: PropTypes.func,
-  message: PropTypes.string,
-  kind: PropTypes.string,
 }
 
 export default AlertSnackbar
