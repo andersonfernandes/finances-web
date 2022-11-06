@@ -81,7 +81,11 @@ const Navbar = ({ menuItems }) => {
       </AppBar>
 
       <MenuDrawer open={openMenu} setOpen={setOpenMenu} menuItems={menuItems} />
-      <AccountSwitcher open={openAccountsSwtcher} setOpen={setOpenAccountsSwtcher} />
+      <AccountSwitcher
+        open={openAccountsSwtcher}
+        setOpen={setOpenAccountsSwtcher}
+        canBeClosed={!!currentAccount}
+      />
     </div>
   )
 }
