@@ -34,7 +34,7 @@ const AccountSwitcher = ({
     <FormDialog
       open={open}
       setOpen={setOpen}
-      title="Switch Account"
+      title="Select the Account"
     >
       <List>
         {accounts.map(account => (

@@ -9,6 +9,7 @@ const { ACCESS_TOKEN, CURRENT_ACCOUNT } = Storage.Keys
 
 export default function useApp() {
   const [currentAccount, setCurrentAccount] = useState(null)
+  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const [loading, setLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState({
@@ -25,14 +26,15 @@ export default function useApp() {
       setCurrentAccount(JSON.parse(currentAccountRaw))
     } else {
       UsersService.loadUserData().then(data => {
-        setCurrentAccount(data.default_account)
-        Storage.set(CURRENT_ACCOUNT, JSON.stringify(data.default_account))
+        handleAccountSwitch(data.default_account)
       })
     }
   }
 
   const handleAccountSwitch = (newAccount) => {
-    if (!currentAccount || newAccount.id != currentAccount.id) {
+    if (!newAccount) {
+      setShowAccountSwitcher(true)
+    } else if (!currentAccount || newAccount.id != currentAccount.id) {
       setCurrentAccount(newAccount)
       Storage.set(CURRENT_ACCOUNT, JSON.stringify(newAccount))
     }
@@ -43,6 +45,7 @@ export default function useApp() {
   return {
     initCurrentAccount,
     currentAccount,
+    showAccountSwitcher,
     handleAccountSwitch,
     loading,
     setLoading,

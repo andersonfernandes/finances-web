@@ -9,6 +9,7 @@ const AppContextProvider = ({ children }) => {
   const {
     initCurrentAccount,
     currentAccount,
+    showAccountSwitcher,
     handleAccountSwitch,
     loading,
     setLoading,
@@ -23,6 +24,7 @@ const AppContextProvider = ({ children }) => {
       value={{
         initCurrentAccount,
         currentAccount,
+        showAccountSwitcher,
         handleAccountSwitch,
         loading,
         setLoading,
