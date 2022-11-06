@@ -5,7 +5,7 @@ import Storage from '../../adapters/storage/cookieStorage'
 
 import { AlertSnackbar } from '../../components'
 
-const { CURRENT_ACCOUNT } = Storage.Keys
+const { ACCESS_TOKEN, CURRENT_ACCOUNT } = Storage.Keys
 
 export default function useApp() {
   const [currentAccount, setCurrentAccount] = useState(null)
@@ -16,18 +16,20 @@ export default function useApp() {
     kind: AlertSnackbar.kinds.info,
   })
 
-  useEffect(() => {
-    const currentAccount = JSON.parse(Storage.get(CURRENT_ACCOUNT))
+  const initCurrentAccount = () => {
+    if (!Storage.get(ACCESS_TOKEN)) return
 
-    if (currentAccount) {
-      setCurrentAccount(currentAccount)
+    const currentAccountRaw = Storage.get(CURRENT_ACCOUNT)
+
+    if (currentAccountRaw) {
+      setCurrentAccount(JSON.parse(currentAccountRaw))
     } else {
       UsersService.loadUserData().then(data => {
         setCurrentAccount(data.default_account)
         Storage.set(CURRENT_ACCOUNT, JSON.stringify(data.default_account))
       })
     }
-  }, [])
+  }
 
   const handleAccountSwitch = (newAccount) => {
     if (!currentAccount || newAccount.id != currentAccount.id) {
@@ -36,7 +38,10 @@ export default function useApp() {
     }
   }
 
+  useEffect(initCurrentAccount, [])
+
   return {
+    initCurrentAccount,
     currentAccount,
     handleAccountSwitch,
     loading,
