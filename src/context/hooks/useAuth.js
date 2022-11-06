@@ -3,9 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import { default as ApiClient } from '../../adapters/api/client'
 import { authenticate, revoke } from '../../adapters/api/authentication'
-import Storage from '../../adapters/storage/cookieStorage'
-
-const { ACCESS_TOKEN, REFRESH_TOKEN, CURRENT_ACCOUNT } = Storage.Keys
+import CookieStorage, { CookieStorageKeys } from '../../adapters/storage/CookieStorage'
 
 export default function useAuth() {
   const history = useHistory()
@@ -15,7 +13,7 @@ export default function useAuth() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = Storage.get(ACCESS_TOKEN)
+    const token = CookieStorage.get(CookieStorageKeys.ACCESS_TOKEN)
 
     if (token) {
       setAuthenticated(true)
@@ -25,8 +23,8 @@ export default function useAuth() {
   }, [])
 
   const handleLoginErrors = () => {
-    Storage.remove(ACCESS_TOKEN)
-    Storage.remove(REFRESH_TOKEN)
+    CookieStorage.remove(CookieStorageKeys.ACCESS_TOKEN)
+    CookieStorage.remove(CookieStorageKeys.REFRESH_TOKEN)
 
     setAuthenticated(false)
     setShowErrors(true)
@@ -41,8 +39,8 @@ export default function useAuth() {
         .then(response => {
           if (response.status === 200) {
             const { access_token, refresh_token } = response.data
-            Storage.set(ACCESS_TOKEN, access_token)
-            Storage.set(REFRESH_TOKEN, refresh_token)
+            CookieStorage.set(CookieStorageKeys.ACCESS_TOKEN, access_token)
+            CookieStorage.set(CookieStorageKeys.REFRESH_TOKEN, refresh_token)
 
             ApiClient.defaults.headers.Authorization = `Bearer ${access_token}`
 
@@ -70,9 +68,9 @@ export default function useAuth() {
 
     revoke()
       .then(() => {
-        Storage.remove(ACCESS_TOKEN)
-        Storage.remove(REFRESH_TOKEN)
-        Storage.remove(CURRENT_ACCOUNT)
+        CookieStorage.remove(CookieStorageKeys.ACCESS_TOKEN)
+        CookieStorage.remove(CookieStorageKeys.REFRESH_TOKEN)
+        CookieStorage.remove(CookieStorageKeys.CURRENT_ACCOUNT)
 
         setLoading(false)
         history.push('/')

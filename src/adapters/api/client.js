@@ -1,12 +1,10 @@
 import axios from 'axios'
 
-import Storage from '../../adapters/storage/cookieStorage'
+import CookieStorage, { CookieStorageKeys } from '../../adapters/storage/CookieStorage'
 import { refresh } from './authentication'
 
-const { ACCESS_TOKEN, REFRESH_TOKEN } = Storage.Keys
-
 const buildAuthorizationHeader = () => {
-  const accessToken = Storage.get(ACCESS_TOKEN)
+  const accessToken = CookieStorage.get(CookieStorageKeys.ACCESS_TOKEN)
 
   if (accessToken) {
     return `Bearer ${accessToken}`
@@ -34,12 +32,12 @@ Client.interceptors.response.use(
     const tokenIsExpired = authenticateHeader.match('expired_token')
 
     if (config && response.status === 401 && tokenIsExpired) {
-      const refreshToken = Storage.get(REFRESH_TOKEN)
+      const refreshToken = CookieStorage.get(CookieStorageKeys.REFRESH_TOKEN)
 
       return refresh(refreshToken).then(response => {
         const { access_token, refresh_token } = response.data
-        Storage.set(ACCESS_TOKEN, access_token)
-        Storage.set(REFRESH_TOKEN, refresh_token)
+        CookieStorage.set(CookieStorageKeys.ACCESS_TOKEN, access_token)
+        CookieStorage.set(CookieStorageKeys.REFRESH_TOKEN, refresh_token)
 
         const authorizationHeader = `Bearer ${access_token}`
         Client.defaults.headers.Authorization = authorizationHeader
