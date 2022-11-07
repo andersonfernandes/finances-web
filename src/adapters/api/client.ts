@@ -22,7 +22,7 @@ const Client = axios.create({
 })
 
 Client.interceptors.response.use(
-  null,
+  undefined,
   async (error) => {
     const { config, response } = error
 
