@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import {
   Backdrop,
@@ -14,7 +13,11 @@ const useStyles = makeStyles({
   }
 })
 
-const LoadingBackdrop = ({ open }) => {
+type Props = {
+  open: boolean
+}
+
+const LoadingBackdrop = ({ open }: Props) => {
   const classes = useStyles()
 
   return (
@@ -25,10 +28,6 @@ const LoadingBackdrop = ({ open }) => {
       <CircularProgress color="inherit" />
     </Backdrop>
   )
-}
-
-LoadingBackdrop.propTypes = {
-  open: PropTypes.bool,
 }
 
 export default LoadingBackdrop

@@ -1,11 +1,10 @@
-import React, { createContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { createContext, ReactNode } from 'react'
 
-import useApp from './hooks/useApp'
+import useApp, { IAppContext } from './hooks/useApp'
 
-const AppContext = createContext()
+const AppContext = createContext<IAppContext>({} as IAppContext)
 
-const AppContextProvider = ({ children }) => {
+const AppContextProvider = ({ children }: { children: ReactNode | Array<ReactNode> }) => {
   const {
     initCurrentAccount,
     currentAccount,
@@ -37,13 +36,6 @@ const AppContextProvider = ({ children }) => {
       {children}
     </AppContext.Provider>
   )
-}
-
-AppContextProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
 }
 
 export default AppContext

@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactNode, useContext } from 'react'
 
 import { Container } from '@mui/material'
 import DashboardIcon from '@mui/icons-material/Dashboard'
@@ -7,14 +6,15 @@ import CreditCardIcon from '@mui/icons-material/CreditCard'
 
 import AppContext from '../../context/AppContext'
 import { Navbar, LoadingBackdrop, AlertSnackbar } from '../../components'
+import { IAppContext } from '../../context/hooks/useApp'
 
-const BaseLayout = ({ children }) => {
+const BaseLayout = ({ children }: { children: ReactNode | Array<ReactNode> }) => {
   const {
     loading,
     showAlert,
     setShowAlert,
     alertData,
-  } = useContext(AppContext)
+  } = useContext(AppContext) as IAppContext
 
   const menuItems = [
     { title: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },
@@ -38,13 +38,6 @@ const BaseLayout = ({ children }) => {
       />
     </>
   )
-}
-
-BaseLayout.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ])
 }
 
 export default BaseLayout
