@@ -49,6 +49,7 @@ export default function useApp(): IAppContext {
       setShowAccountSwitcher(true)
     } else if (!currentAccount || newAccount.id !== currentAccount['id']) {
       setCurrentAccount(newAccount)
+      setShowAccountSwitcher(false)
       CookieStorage.set(CookieStorageKeys.CURRENT_ACCOUNT, JSON.stringify(newAccount))
     }
   }

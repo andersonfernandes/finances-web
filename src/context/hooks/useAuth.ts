@@ -5,7 +5,16 @@ import { default as ApiClient } from '../../adapters/api/client'
 import { authenticate, revoke } from '../../adapters/api/authentication'
 import CookieStorage, { CookieStorageKeys } from '../../adapters/storage/CookieStorage'
 
-export default function useAuth() {
+export interface IAuthContext {
+  authenticated: boolean,
+  loading: boolean,
+  showErrors: boolean,
+  setShowErrors: (value: boolean) => void,
+  handleLogin: ({ email, password }: { email: string, password: string }) => Promise<void>,
+  handleLogout: () => Promise<void>,
+}
+
+export default function useAuth(): IAuthContext {
   const history = useHistory()
 
   const [authenticated, setAuthenticated] = useState(false)
@@ -30,7 +39,7 @@ export default function useAuth() {
     setShowErrors(true)
   }
 
-  const handleLogin =  async ({ email, password }) => {
+  const handleLogin =  async ({ email, password }: { email: string, password: string }): Promise<void> => {
     setShowErrors(false)
     setLoading(true)
 
@@ -62,7 +71,7 @@ export default function useAuth() {
     })
   }
 
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     setLoading(true)
     setAuthenticated(false)
 

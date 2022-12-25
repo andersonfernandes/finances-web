@@ -1,11 +1,10 @@
-import React, { createContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { createContext, ReactNode } from 'react'
 
-import useAuth from './hooks/useAuth'
+import useAuth, { IAuthContext } from './hooks/useAuth'
 
-const AuthContext = createContext()
+const AuthContext = createContext<IAuthContext>({} as IAuthContext)
 
-const AuthContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }: { children: ReactNode | Array<ReactNode> }) => {
   const {
     authenticated,
     loading,
@@ -29,13 +28,6 @@ const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
-}
-
-AuthContextProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ])
 }
 
 export default AuthContext
