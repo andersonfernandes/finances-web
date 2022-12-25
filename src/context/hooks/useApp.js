@@ -36,6 +36,7 @@ export default function useApp() {
       setShowAccountSwitcher(true)
     } else if (!currentAccount || newAccount.id != currentAccount.id) {
       setCurrentAccount(newAccount)
+      setShowAccountSwitcher(false)
       Storage.set(CURRENT_ACCOUNT, JSON.stringify(newAccount))
     }
   }
