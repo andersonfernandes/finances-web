@@ -12,34 +12,26 @@ const fetchCreditCard = async (id) => {
 
 const postCreditCard = async ({
   name,
-  closing_day,
-  due_day,
+  billing_day,
   limit,
-  financial_institution_id,
 }) => {
   return Client.post(RESOURCE_URL, {
     name,
-    closing_day,
-    due_day,
+    billing_day,
     limit,
-    financial_institution_id,
   })
 }
 
 const putCreditCard = async ({
   id,
   name,
-  closing_day,
-  due_day,
+  billing_day,
   limit,
-  financial_institution_id,
 }) => {
   return Client.put(`${RESOURCE_URL}/${id}`, {
     name,
-    closing_day,
-    due_day,
+    billing_day,
     limit,
-    financial_institution_id,
   })
 }
 

@@ -1,14 +1,11 @@
 import React, {
   useContext,
   useEffect,
-  useState,
 } from 'react'
 import PropTypes from 'prop-types'
 import { InputAdornment } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-
-import { allFinancialInstitutions } from '../../adapters/api/financialInstitutions'
 
 import AppContext from '../../context/AppContext'
 import { creditCardDefaults, creditCardSchema } from '../../adapters/schemas/creditCard'
@@ -18,7 +15,6 @@ import {
   AlertSnackbar,
   FormDialog,
   TextInput,
-  SelectInput,
 } from '../../components'
 
 const Form = ({
@@ -33,7 +29,6 @@ const Form = ({
     defaultValues: creditCardDefaults,
   })
 
-  const [financialInstitutions, setFinancialInstitutions] = useState([])
   const { 
     setLoading,
     setShowAlert,
@@ -41,20 +36,6 @@ const Form = ({
   } = useContext(AppContext)
 
   useEffect(() => reset(creditCard), [creditCard, reset])
-
-  useEffect(() => {
-    setLoading(true)
-
-    allFinancialInstitutions()
-      .then(response => {
-        const { status, data } = response
-
-        if (status === 200) {
-          setFinancialInstitutions(data)
-        }
-      })
-      .finally(() => setLoading(false))
-  }, [setLoading])
 
   const handleSubmitAction = (formParams) => {
     setLoading(true)
@@ -90,8 +71,7 @@ const Form = ({
       onClose={reset}
     >
       <TextInput control={control} name="name" label="Name" />
-      <TextInput control={control} name="closing_day" label="Closing Day" />
-      <TextInput control={control} name="due_day" label="Due Day" />
+      <TextInput control={control} name="billing_day" label="Billing Day" />
       <TextInput
         control={control}
         name="limit"
@@ -99,12 +79,6 @@ const Form = ({
         inputProps={{
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
-      />
-      <SelectInput
-        control={control}
-        name={'financial_institution_id'}
-        label="Financial Institution"
-        options={financialInstitutions}
       />
     </FormDialog>
   )

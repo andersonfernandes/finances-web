@@ -48,13 +48,17 @@ const ResourceList = ({
     }
   }
 
+  const textToLetterAvatar = (text) => {
+    return text.split(' ').map(word => word[0].toUpperCase()).join('')
+  }
+
   return <>
     <List>
       {items.map((item, index) => {
         return (
           <ListItem key={item.title} button>
             <ListItemAvatar>
-              <Avatar alt={item.title} src={item.icon} />
+              {item.icon ? <Avatar alt={item.title} src={item.icon} /> : <Avatar>{textToLetterAvatar(item.title)}</Avatar>}
             </ListItemAvatar>
 
             <ListItemText
